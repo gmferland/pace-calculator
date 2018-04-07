@@ -24,24 +24,44 @@ races.forEach(function(r) {
 });
 
 inputTime.onblur = updateSplits;
-inputTime.onsubmit = updateSplits;
+inputTime.onfocus = function() {
+  setErrorLabel(false);
+};
+inputTime.onkeypress = function(e) {
+  switch (e.key) {
+    case 'Enter':
+    case 'Tab':
+      updateSplits();
+    default:
+      setErrorLabel(false);
+  }
+};
 selectEvent.onchange = updateSplits;
 
 function updateSplits(event) {
   try {
     const seconds = parseTime(event.target.value);
-    console.log(getSelectedDistance());
     const splits = calculateSplits(seconds, getSelectedDistance());
     displayResult(splits);
   } catch (error) {
-    const errorLabel = document.getElementById('error-label');
-    errorLabel.innerHTML = error;
+    setErrorLabel(true, error);
+  }
+}
+
+function setErrorLabel(visibility, labelText) {
+  const errorLabel = document.getElementById('error-label');
+  errorLabel.innerHTML = labelText;
+  if (visibility) {
     errorLabel.classList.remove('hidden');
+  } else {
+    errorLabel.classList.add('hidden');
   }
 }
 
 // convert a string of the format (hh):mm:ss to a number in seconds
-function parseTime(timeString) {}
+function parseTime(timeString) {
+  throw new Error('Dev error!');
+}
 
 // match the value of the selected event in the dropdown to its distance in meters
 function getSelectedDistance() {
