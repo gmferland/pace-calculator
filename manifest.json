@@ -5,7 +5,19 @@
     "Quickly calculate pace per mile and other intermediate splits for common running distances.",
   "browser_action": {
     "default_popup": "src/popup.html",
-    "default_title": "Pace Calculator"
+    "default_title": "Pace Calculator",
+    "default_icon": {
+      "16": "images/pace_calculator16.png",
+      "32": "images/pace_calculator32.png",
+      "48": "images/pace_calculator48.png",
+      "128": "images/pace_calculator128.png"
+    }
+  },
+  "icons": {
+    "16": "images/pace_calculator16.png",
+    "32": "images/pace_calculator32.png",
+    "48": "images/pace_calculator48.png",
+    "128": "images/pace_calculator128.png"
   },
   "manifest_version": 2
 }
