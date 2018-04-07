@@ -1,6 +1,6 @@
 const events = [
   {
-    name: '<script type="text/javascript></script>',
+    name: 'Mile',
     distance: 1609,
   },
   {
