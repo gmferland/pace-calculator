@@ -1,3 +1,9 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+
 .input-container {
   display: flex;
   justify-content: space-between;
@@ -10,4 +16,13 @@ input {
 
 *:focus {
   outline: none;
+}
+
+#error-label {
+  color: red;
+  padding-top: 8px;
+}
+
+.hidden {
+  display: none;
 }

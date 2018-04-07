@@ -6,12 +6,15 @@
 </head>
 
 <body>
-  <div class="input-container">
-    <label for="time">Time:</label>
-    <input type="text" name="time" placeholder="Time"></input>
-    <select name="event" id="event">
-      <option value="default" selected>Event</option>
-    </select>
+  <div class="main">
+    <div class="input-container">
+      <label for="time">Time:</label>
+      <input id="time" type="text" name="time" placeholder="Time"></input>
+      <select id="event" name="event">
+        <option value="default" selected>Event</option>
+      </select>
+    </div>
+    <span id="error-label" class="hidden"></span>
   </div>
 
   <script src="popup.js"></script>
