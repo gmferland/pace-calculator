@@ -1,27 +1,11 @@
 {
-  "name": "Getting Started Example",
-  "version": "1.0",
-  "description": "Build an Extension!",
-  "permissions": ["activeTab", "declarativeContent", "storage"],
-  "background": {
-    "scripts": ["src/background.js"],
-    "persistent": false
-  },
-  "options_page": "src/options.html",
-  "page_action": {
+  "name": "Pace Calculator",
+  "version": "1.0.0",
+  "description":
+    "Quickly calculate pace per mile and other intermediate splits for common running distances.",
+  "browser_action": {
     "default_popup": "src/popup.html",
-    "default_icon": {
-      "16": "images/get_started16.png",
-      "32": "images/get_started32.png",
-      "48": "images/get_started48.png",
-      "128": "images/get_started128.png"
-    }
-  },
-  "icons": {
-    "16": "images/get_started16.png",
-    "32": "images/get_started32.png",
-    "48": "images/get_started48.png",
-    "128": "images/get_started128.png"
+    "default_title": "Pace Calculator"
   },
   "manifest_version": 2
 }

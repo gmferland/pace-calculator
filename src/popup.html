@@ -2,17 +2,18 @@
 <html>
 
 <head>
-  <style>
-    button {
-      height: 30px;
-      width: 30px;
-      outline: none;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="popup.css">
 </head>
 
 <body>
-  <button id="changeColor"></button>
+  <div class="input-container">
+    <label for="time">Time:</label>
+    <input type="text" name="time" placeholder="Time"></input>
+    <select name="event" id="event">
+      <option value="default" selected>Event</option>
+    </select>
+  </div>
+
   <script src="popup.js"></script>
 </body>
 
