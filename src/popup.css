@@ -8,6 +8,6 @@ input {
   margin: 0 4px;
 }
 
-input:focus {
+*:focus {
   outline: none;
 }
