@@ -1,7 +1,5 @@
 # Pace Calculator
 
-#### A Chrome extension to calculate pace per mile, kilometer, and more for common running distances
-
 ## Development
 
 After cloning this repository, follow these steps to see the development version of the extension in your browser.
