@@ -2,7 +2,7 @@
   "name": "Pace Calculator",
   "version": "1.0.0",
   "description":
-    "Quickly calculate pace per mile and other intermediate splits for common running distances.",
+    "Quickly calculate pace per mile and more for common running distances.",
   "browser_action": {
     "default_popup": "src/popup.html",
     "default_title": "Pace Calculator",
