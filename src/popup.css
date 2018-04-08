@@ -1,7 +1,12 @@
-.main {
+#main {
   display: flex;
   flex-direction: column;
   padding: 8px;
+}
+
+#splits-table {
+  display: flex;
+  flex-direction: column;
 }
 
 .input-container {
@@ -25,4 +30,13 @@ input {
 
 .hidden {
   display: none;
+}
+
+.pace-row {
+  display: flex;
+  padding-top: 8px;
+}
+
+.time-label {
+  padding-left: 4px;
 }
