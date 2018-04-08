@@ -4,12 +4,12 @@ const races = [
     distance: 1609,
   },
   {
-    race: '2 Mile',
-    distance: 3218,
-  },
-  {
     race: '3k',
     distance: 3000,
+  },
+  {
+    race: '2 Mile',
+    distance: 3218,
   },
   {
     race: '5k',
