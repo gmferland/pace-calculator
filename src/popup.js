@@ -71,8 +71,6 @@ document.onload = chrome.storage.local.get(['paceCalculator'], function(
   }
 });
 
-document.addEventListener('beforeunload');
-
 function updateSplits() {
   try {
     const seconds = convertToSeconds(inputTime.value);
@@ -118,10 +116,21 @@ function convertToSeconds(duration) {
 
 // calculate intermediate splits for the given distance (m) and time (s)
 function calculateSplits(time, raceDistance) {
-  const splits = [
-    { race: '1k', time: Math.round(time * 1000 / raceDistance) },
-    { race: 'Mile', time: Math.round(time * 1609 / raceDistance) },
-  ];
+  const splits = [];
+
+  if (raceDistance <= 10000) {
+    splits.push({
+      race: '400',
+      time: Math.round(time * 400 / raceDistance),
+    });
+  }
+
+  if (raceDistance > 1609) {
+    splits.push(
+      { race: '1k', time: Math.round(time * 1000 / raceDistance) },
+      { race: 'Mile', time: Math.round(time * 1609 / raceDistance) },
+    );
+  }
 
   if (raceDistance > 3000) {
     splits.push({
@@ -230,7 +239,6 @@ function createRowForSplit(split) {
   raceLabel.innerHTML = split.race + ':';
 
   const timeLabel = document.createElement('span');
-  timeLabel.setAttribute('id', split.race);
   timeLabel.classList.add('time-label');
   timeLabel.innerHTML = split.time;
 
