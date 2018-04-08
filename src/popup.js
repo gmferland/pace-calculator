@@ -37,14 +37,14 @@ const races = [
   },
 ];
 
-const selectEvent = document.getElementById('event');
+const selectRace = document.getElementById('race');
 const inputTime = document.getElementById('time');
 
 races.forEach(function(r) {
   const child = document.createElement('option');
   child.setAttribute('value', r.race);
   child.innerHTML = r.race;
-  selectEvent.appendChild(child);
+  selectRace.appendChild(child);
 });
 
 inputTime.onfocus = function() {
@@ -59,21 +59,21 @@ inputTime.onkeypress = function(e) {
       setErrorLabel(false);
   }
 };
-selectEvent.onchange = updateSplits;
+selectRace.onchange = updateSplits;
 
 document.onload = chrome.storage.local.get(['paceCalculator'], function(
   result,
 ) {
   if (result.paceCalculator.time) {
     inputTime.setAttribute('value', result.paceCalculator.time);
-    selectEvent.selectedIndex = result.paceCalculator.raceIndex;
+    selectRace.selectedIndex = result.paceCalculator.raceIndex;
     displayResult(result.paceCalculator.splits);
   }
 });
 
 document.addEventListener('beforeunload');
 
-function updateSplits(event) {
+function updateSplits() {
   try {
     const seconds = convertToSeconds(inputTime.value);
     const splits = calculateSplits(seconds, getSelectedDistance());
@@ -82,7 +82,7 @@ function updateSplits(event) {
     chrome.storage.local.set({
       paceCalculator: {
         time: inputTime.value,
-        raceIndex: selectEvent.selectedIndex,
+        raceIndex: selectRace.selectedIndex,
         splits: formatSplits(splits),
       },
     });
@@ -194,9 +194,9 @@ function formatSplits(splits) {
   });
 }
 
-// match the value of the selected event in the dropdown to its distance in meters
+// match the value of the selected race in the dropdown to its distance in meters
 function getSelectedDistance() {
-  const raceName = selectEvent.options[selectEvent.selectedIndex].value;
+  const raceName = selectRace.options[selectRace.selectedIndex].value;
   if (raceName === 'default') {
     return 0;
   }
