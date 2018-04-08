@@ -19,5 +19,6 @@
     "48": "images/pace_calculator48.png",
     "128": "images/pace_calculator128.png"
   },
+  "permissions": ["storage"],
   "manifest_version": 2
 }

@@ -4,12 +4,36 @@ const races = [
     distance: 1609,
   },
   {
+    race: '2 Mile',
+    distance: 3218,
+  },
+  {
+    race: '3k',
+    distance: 3000,
+  },
+  {
     race: '5k',
     distance: 5000,
   },
   {
     race: '10k',
     distance: 10000,
+  },
+  {
+    race: '15k',
+    distance: 15000,
+  },
+  {
+    race: '20k',
+    distance: 20000,
+  },
+  {
+    race: 'Half Marathon',
+    distance: 21097.5,
+  },
+  {
+    race: 'Marathon',
+    distance: 42195,
   },
 ];
 
@@ -37,11 +61,31 @@ inputTime.onkeypress = function(e) {
 };
 selectEvent.onchange = updateSplits;
 
+document.onload = chrome.storage.local.get(['paceCalculator'], function(
+  result,
+) {
+  if (result.paceCalculator.time) {
+    inputTime.setAttribute('value', result.paceCalculator.time);
+    selectEvent.selectedIndex = result.paceCalculator.raceIndex;
+    displayResult(result.paceCalculator.splits);
+  }
+});
+
+document.addEventListener('beforeunload');
+
 function updateSplits(event) {
   try {
     const seconds = convertToSeconds(inputTime.value);
     const splits = calculateSplits(seconds, getSelectedDistance());
     displayResult(formatSplits(splits));
+    // save state
+    chrome.storage.local.set({
+      paceCalculator: {
+        time: inputTime.value,
+        raceIndex: selectEvent.selectedIndex,
+        splits: formatSplits(splits),
+      },
+    });
   } catch (error) {
     setErrorLabel(true, error);
   }
@@ -65,8 +109,8 @@ function convertToSeconds(duration) {
   }
 
   return tokens.reduceRight(function(seconds, current, index) {
-    if (current.match(/[^0-9]/)) {
-      throw new Error('Time must only contain numbers');
+    if (current.match(/[^0-9\.]/)) {
+      throw new Error('Time must only contain positive numbers');
     }
     return seconds + Number(current) * Math.pow(60, tokens.length - 1 - index);
   }, 0);
@@ -74,7 +118,33 @@ function convertToSeconds(duration) {
 
 // calculate intermediate splits for the given distance (m) and time (s)
 function calculateSplits(time, raceDistance) {
-  return [{ race: 'Mile', time }];
+  const splits = [
+    { race: '1k', time: Math.round(time * 1000 / raceDistance) },
+    { race: 'Mile', time: Math.round(time * 1609 / raceDistance) },
+  ];
+
+  if (raceDistance > 3000) {
+    splits.push({
+      race: '3k',
+      time: Math.round(time * 3000 / raceDistance),
+    });
+  }
+
+  if (raceDistance > 5000) {
+    splits.push({
+      race: '5k',
+      time: Math.round(time * 5000 / raceDistance),
+    });
+  }
+
+  if (raceDistance > 10000) {
+    splits.push({
+      race: '10k',
+      time: Math.round(time * 10000 / raceDistance),
+    });
+  }
+
+  return splits;
 }
 
 // convert a number in seconds to a time duration
@@ -83,15 +153,30 @@ function convertToDuration(duration) {
 
   while (duration > 0) {
     const hours = Math.floor(duration / 3600);
-    const minutes = Math.floor(duration / 60);
+    let minutes = Math.floor(duration / 60);
+    let seconds = Math.floor(duration);
     if (hours >= 1) {
-      durationBuilder.push(hours);
+      durationBuilder.push(String(hours));
       duration = duration - hours * 3600;
+      if (duration === 0) {
+        durationBuilder.push('00', '00');
+      }
     } else if (minutes >= 1) {
+      if (durationBuilder.length > 0) {
+        // only want the leading zero on minutes if there are hours as well
+        minutes = String(minutes).padStart(2, '0');
+      }
       durationBuilder.push(minutes);
       duration = duration - minutes * 60;
+      if (duration === 0) {
+        durationBuilder.push('00');
+      }
     } else {
-      durationBuilder.push(duration);
+      if (durationBuilder.length > 0) {
+        // only want the leading zero on seconds if there are minutes as well
+        seconds = String(seconds).padStart(2, '0');
+      }
+      durationBuilder.push(seconds);
       duration = 0;
     }
   }
@@ -123,19 +208,21 @@ function getSelectedDistance() {
 
 // update the dom to show a list of the calculated splits
 function displayResult(splits) {
+  const splitsTable = document.getElementById('splits-table');
+  // clear old results
+  while (splitsTable.lastChild) {
+    splitsTable.removeChild(splitsTable.lastChild);
+  }
+  // display new results
   splits.forEach(function(split) {
-    const existingNode = document.getElementById(split.race);
-    if (existingNode) {
-      existingNode.innerHTML = split.time;
-    } else {
-      const row = createRowForSplit(split);
-      const splitsTable = document.getElementById('splits-table');
-      splitsTable.appendChild(row);
-      if (splitsTable.classList.contains('hidden')) {
-        splitsTable.classList.remove('hidden');
-      }
-    }
+    const row = createRowForSplit(split);
+    splitsTable.appendChild(row);
   });
+  // show title
+  const title = document.getElementById('splits-table-title');
+  if (title.classList.contains('hidden')) {
+    title.classList.remove('hidden');
+  }
 }
 
 function createRowForSplit(split) {

@@ -40,3 +40,9 @@ input {
 .time-label {
   padding-left: 4px;
 }
+
+h3#splits-table-title {
+  padding: 4px 0;
+  margin: 0;
+  border-bottom: 1px solid #424242;
+}

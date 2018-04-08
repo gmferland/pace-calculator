@@ -9,14 +9,14 @@
   <div id="main">
     <div class="input-container">
       <label for="time">Time:</label>
-      <input id="time" type="text" name="time" placeholder="Time"></input>
+      <input id="time" type="text" name="time" placeholder="Enter Time"></input>
       <select id="event" name="event">
-        <option value="default" selected>Event</option>
+        <option value="default" selected>Select Event</option>
       </select>
     </div>
     <span id="error-label" class="hidden"></span>
-    <div id="splits-table" class="hidden">
-    </div>
+    <h3 id="splits-table-title" class="hidden">Pace per:</h3>
+    <div id="splits-table"></div>
   </div>
 
   <script src="popup.js"></script>
