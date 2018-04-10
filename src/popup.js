@@ -2,40 +2,65 @@ const races = [
   {
     race: 'Mile',
     distance: 1609,
+    splits: ['400'],
   },
   {
     race: '3k',
     distance: 3000,
+    splits: ['400', '1k', 'Mile'],
   },
   {
     race: '2 Mile',
     distance: 3218,
+    splits: ['400', '1k', 'Mile', '3k'],
   },
   {
     race: '5k',
     distance: 5000,
+    splits: ['400', '1k', 'Mile', '3k'],
+  },
+  {
+    race: '8k',
+    distance: 8000,
+    splits: ['1k', 'Mile', '3k', '5k'],
   },
   {
     race: '10k',
     distance: 10000,
+    splits: ['1k', 'Mile', '3k', '5k'],
   },
   {
     race: '15k',
     distance: 15000,
+    splits: ['1k', 'Mile', '3k', '5k', '10k'],
   },
   {
     race: '20k',
     distance: 20000,
+    splits: ['1k', 'Mile', '3k', '5k', '10k'],
   },
   {
     race: 'Half Marathon',
     distance: 21097.5,
+    splits: ['1k', 'Mile', '3k', '5k', '10k'],
   },
   {
     race: 'Marathon',
     distance: 42195,
+    splits: ['1k', 'Mile', '3k', '5k', '10k'],
   },
 ];
+
+const allSplits = {
+  '200': 200,
+  '400': 400,
+  '800': 800,
+  '1k': 1000,
+  Mile: 1609,
+  '3k': 3000,
+  '5k': 5000,
+  '10k': 10000,
+};
 
 const selectRace = document.getElementById('race');
 const inputTime = document.getElementById('time');
@@ -116,44 +141,17 @@ function convertToSeconds(duration) {
 
 // calculate intermediate splits for the given distance (m) and time (s)
 function calculateSplits(time, raceDistance) {
-  const splits = [];
-
-  if (raceDistance <= 10000) {
-    splits.push({
-      race: '400',
-      time: Math.round(time * 400 / raceDistance),
+  return races
+    .find(function(race) {
+      return race.distance === raceDistance;
+    })
+    .splits.map(function(splitName) {
+      const distance = allSplits[splitName];
+      return {
+        race: splitName,
+        time: Math.round(time * distance / raceDistance),
+      };
     });
-  }
-
-  if (raceDistance > 1609) {
-    splits.push(
-      { race: '1k', time: Math.round(time * 1000 / raceDistance) },
-      { race: 'Mile', time: Math.round(time * 1609 / raceDistance) },
-    );
-  }
-
-  if (raceDistance > 3000) {
-    splits.push({
-      race: '3k',
-      time: Math.round(time * 3000 / raceDistance),
-    });
-  }
-
-  if (raceDistance > 5000) {
-    splits.push({
-      race: '5k',
-      time: Math.round(time * 5000 / raceDistance),
-    });
-  }
-
-  if (raceDistance > 10000) {
-    splits.push({
-      race: '10k',
-      time: Math.round(time * 10000 / raceDistance),
-    });
-  }
-
-  return splits;
 }
 
 // convert a number in seconds to a time duration
