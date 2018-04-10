@@ -1,5 +1,10 @@
 const races = [
   {
+    race: '1500',
+    distance: 1500,
+    splits: ['400'],
+  },
+  {
     race: 'Mile',
     distance: 1609,
     splits: ['400'],
