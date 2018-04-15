@@ -195,7 +195,9 @@ function convertToDuration(duration) {
     }
   }
 
-  return durationBuilder.join(':');
+  return durationBuilder.length > 1
+    ? durationBuilder.join(':')
+    : String(durationBuilder[0]) + ' sec';
 }
 
 // convert to duration for an array of split objects
