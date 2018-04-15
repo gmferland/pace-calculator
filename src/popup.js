@@ -200,12 +200,15 @@ function convertToDuration(duration) {
 
 // convert to duration for an array of split objects
 function formatSplits(splits) {
-  return splits.map(function(split) {
-    return {
-      race: split.race,
-      time: convertToDuration(split.time),
-    };
-  });
+  if (splits) {
+    return splits.map(function(split) {
+      return {
+        race: split.race,
+        time: convertToDuration(split.time),
+      };
+    });
+  }
+  return null;
 }
 
 // get the value of the selected race in the dropdown
@@ -216,19 +219,26 @@ function getSelectedRaceName() {
 // update the dom to show a list of the calculated splits
 function displayResult(splits) {
   const splitsTable = document.getElementById('splits-table');
+  const title = document.getElementById('splits-table-title');
   // clear old results
   while (splitsTable.lastChild) {
     splitsTable.removeChild(splitsTable.lastChild);
   }
-  // display new results
-  splits.forEach(function(split) {
-    const row = createRowForSplit(split);
-    splitsTable.appendChild(row);
-  });
-  // show title
-  const title = document.getElementById('splits-table-title');
-  if (title.classList.contains('hidden')) {
-    title.classList.remove('hidden');
+  if (splits) {
+    // display new results
+    splits.forEach(function(split) {
+      const row = createRowForSplit(split);
+      splitsTable.appendChild(row);
+    });
+    // show title
+    if (title.classList.contains('hidden')) {
+      title.classList.remove('hidden');
+    }
+  } else {
+    // hide title
+    if (!title.classList.contains('hidden')) {
+      title.classList.add('hidden');
+    }
   }
 }
 
