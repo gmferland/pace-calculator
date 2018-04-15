@@ -1,76 +1,72 @@
-const races = [
+const raceOptions = [
   {
     race: '1500',
-    distance: 1500,
     splits: ['400'],
   },
   {
     race: 'Mile',
-    distance: 1609,
     splits: ['400'],
   },
   {
     race: '3k',
-    distance: 3000,
     splits: ['400', '1k', 'Mile'],
   },
   {
     race: '2 Mile',
-    distance: 3218,
     splits: ['400', '1k', 'Mile', '3k'],
   },
   {
     race: '5k',
-    distance: 5000,
     splits: ['400', '1k', 'Mile', '3k'],
   },
   {
     race: '8k',
-    distance: 8000,
     splits: ['1k', 'Mile', '3k', '5k'],
   },
   {
     race: '10k',
-    distance: 10000,
     splits: ['1k', 'Mile', '3k', '5k'],
   },
   {
     race: '15k',
-    distance: 15000,
     splits: ['1k', 'Mile', '3k', '5k', '10k'],
   },
   {
     race: '20k',
-    distance: 20000,
     splits: ['1k', 'Mile', '3k', '5k', '10k'],
   },
   {
     race: 'Half Marathon',
-    distance: 21097.5,
     splits: ['1k', 'Mile', '3k', '5k', '10k'],
   },
   {
     race: 'Marathon',
-    distance: 42195,
     splits: ['1k', 'Mile', '3k', '5k', '10k'],
   },
 ];
 
-const allSplits = {
+const mapRaceNameToDistance = {
   '200': 200,
   '400': 400,
   '800': 800,
   '1k': 1000,
+  '1500': 1500,
   Mile: 1609,
   '3k': 3000,
+  '2 Mile': 3218,
   '5k': 5000,
+  '8k': 8000,
   '10k': 10000,
+  '15k': 15000,
+  '20k': 20000,
+  'Half Marathon': 21097.5,
+  Marathon: 42195,
 };
 
 const selectRace = document.getElementById('race');
 const inputTime = document.getElementById('time');
 
-races.forEach(function(r) {
+raceOptions.forEach(function(r) {
   const child = document.createElement('option');
   child.setAttribute('value', r.race);
   child.innerHTML = r.race;
@@ -104,7 +100,7 @@ document.onload = chrome.storage.local.get(['paceCalculator'], function(
 function updateSplits() {
   try {
     const seconds = convertToSeconds(inputTime.value);
-    const splits = calculateSplits(seconds, getSelectedDistance());
+    const splits = calculateSplits(seconds, getSelectedRaceName());
     displayResult(formatSplits(splits));
     // save state
     chrome.storage.local.set({
@@ -145,16 +141,22 @@ function convertToSeconds(duration) {
 }
 
 // calculate intermediate splits for the given distance (m) and time (s)
-function calculateSplits(time, raceDistance) {
-  return races
+function calculateSplits(time, raceName) {
+  if (raceName === 'default') {
+    return null;
+  }
+  return raceOptions
     .find(function(race) {
-      return race.distance === raceDistance;
+      return race.race === raceName;
     })
     .splits.map(function(splitName) {
-      const distance = allSplits[splitName];
       return {
         race: splitName,
-        time: Math.round(time * distance / raceDistance),
+        time: Math.round(
+          time *
+            mapRaceNameToDistance[splitName] /
+            mapRaceNameToDistance[raceName],
+        ),
       };
     });
 }
@@ -206,16 +208,9 @@ function formatSplits(splits) {
   });
 }
 
-// match the value of the selected race in the dropdown to its distance in meters
-function getSelectedDistance() {
-  const raceName = selectRace.options[selectRace.selectedIndex].value;
-  if (raceName === 'default') {
-    return 0;
-  }
-
-  return races.find(function(r) {
-    return r.race === raceName;
-  }).distance;
+// get the value of the selected race in the dropdown
+function getSelectedRaceName() {
+  return selectRace.options[selectRace.selectedIndex].value;
 }
 
 // update the dom to show a list of the calculated splits
