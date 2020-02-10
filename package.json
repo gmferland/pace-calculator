@@ -4,7 +4,9 @@
   "description": "Quickly calculate pace per mile and more for common running distances.",
   "main": "index.js",
   "scripts": {
+    "build:app": "rm -rf dist/app && webpack --config webpack/app.config.js --mode production",
     "build:extension": "rm -rf dist/extension && webpack --config webpack/extension.config.js --mode production",
+    "dev": "webpack-dev-server --config webpack/app.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +25,7 @@
     "mini-css-extract-plugin": "^0.9.0",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.3",
     "webpack-merge": "^4.2.2"
   }
 }

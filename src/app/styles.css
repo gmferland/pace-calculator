@@ -1,0 +1,48 @@
+#main {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+
+#splits-table {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+input {
+  margin: 0 4px;
+}
+
+*:focus {
+  outline: none;
+}
+
+#error-label {
+  color: red;
+  padding-top: 8px;
+}
+
+.hidden {
+  display: none;
+}
+
+.pace-row {
+  display: flex;
+  padding-top: 8px;
+}
+
+.time-label {
+  padding-left: 4px;
+}
+
+h3#splits-table-title {
+  padding: 4px 0;
+  margin: 0;
+  border-bottom: 1px solid #424242;
+}
