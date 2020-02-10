@@ -1,10 +1,9 @@
 {
   "name": "Pace Calculator",
-  "version": "1.0.1",
-  "description":
-    "Quickly calculate pace per mile and more for common running distances.",
+  "version": "1.0.2",
+  "description": "Quickly calculate pace per mile and more for common running distances.",
   "browser_action": {
-    "default_popup": "src/popup.html",
+    "default_popup": "dist/extension/index.html",
     "default_title": "Pace Calculator",
     "default_icon": {
       "16": "images/pace_calculator16.png",

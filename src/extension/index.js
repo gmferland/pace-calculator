@@ -1,67 +1,9 @@
-const raceOptions = [
-  {
-    race: '1500',
-    splits: ['400'],
-  },
-  {
-    race: 'Mile',
-    splits: ['400'],
-  },
-  {
-    race: '3k',
-    splits: ['400', '1k', 'Mile'],
-  },
-  {
-    race: '2 Mile',
-    splits: ['400', '1k', 'Mile', '3k'],
-  },
-  {
-    race: '5k',
-    splits: ['400', '1k', 'Mile', '3k'],
-  },
-  {
-    race: '8k',
-    splits: ['1k', 'Mile', '3k', '5k'],
-  },
-  {
-    race: '10k',
-    splits: ['1k', 'Mile', '3k', '5k'],
-  },
-  {
-    race: '15k',
-    splits: ['1k', 'Mile', '3k', '5k', '10k'],
-  },
-  {
-    race: '20k',
-    splits: ['1k', 'Mile', '3k', '5k', '10k'],
-  },
-  {
-    race: 'Half Marathon',
-    splits: ['1k', 'Mile', '3k', '5k', '10k'],
-  },
-  {
-    race: 'Marathon',
-    splits: ['1k', 'Mile', '3k', '5k', '10k'],
-  },
-];
+import * as config from '../common/config';
+import './styles.css';
 
-const mapRaceNameToDistance = {
-  '200': 200,
-  '400': 400,
-  '800': 800,
-  '1k': 1000,
-  '1500': 1500,
-  Mile: 1609,
-  '3k': 3000,
-  '2 Mile': 3218,
-  '5k': 5000,
-  '8k': 8000,
-  '10k': 10000,
-  '15k': 15000,
-  '20k': 20000,
-  'Half Marathon': 21097.5,
-  Marathon: 42195,
-};
+const raceOptions = config.raceOptions;
+
+const mapRaceNameToDistance = config.raceDistances;
 
 const selectRace = document.getElementById('race');
 const inputTime = document.getElementById('time');
@@ -88,7 +30,7 @@ inputTime.onkeypress = function(e) {
 selectRace.onchange = updateSplits;
 
 document.onload = chrome.storage.local.get(['paceCalculator'], function(
-  result,
+  result
 ) {
   if (result.paceCalculator.time) {
     inputTime.setAttribute('value', result.paceCalculator.time);
@@ -153,9 +95,8 @@ function calculateSplits(time, raceName) {
       return {
         race: splitName,
         time: Math.round(
-          time *
-            mapRaceNameToDistance[splitName] /
-            mapRaceNameToDistance[raceName],
+          (time * mapRaceNameToDistance[splitName]) /
+            mapRaceNameToDistance[raceName]
         ),
       };
     });
