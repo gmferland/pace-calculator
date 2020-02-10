@@ -1,9 +1,10 @@
-const merge = require('webpack-merge');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const baseConfig = require('./base.config');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = merge(baseConfig, {
+const devMode = process.env.NODE_ENV === 'development';
+
+module.exports = {
   entry: {
     app: './src/app/index.js',
   },
@@ -14,12 +15,29 @@ module.exports = merge(baseConfig, {
   devServer: {
     contentBase: path.join(__dirname, 'dist/app'),
   },
+  module: {
+    rules: [
+      {
+        test: /\.s?css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: devMode,
+            },
+          },
+          'css-loader',
+          'sass-loader',
+        ],
+      },
+    ],
+  },
   optimization: {
     splitChunks: {
       cacheGroups: {
         styles: {
           name: 'app',
-          test: /\.css$/,
+          test: /\.s?css$/,
           chunks: 'all',
           enforce: true,
         },
@@ -30,5 +48,8 @@ module.exports = merge(baseConfig, {
     new HtmlWebpackPlugin({
       template: 'src/app/index.html',
     }),
+    new MiniCssExtractPlugin({
+      filename: devMode ? '[name].css' : '[name].[hash].css',
+    }),
   ],
-});
+};

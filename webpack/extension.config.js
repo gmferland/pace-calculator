@@ -1,15 +1,32 @@
-const merge = require('webpack-merge');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const baseConfig = require('./base.config');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = merge(baseConfig, {
+const devMode = process.env.NODE_ENV === 'development';
+
+module.exports = {
   entry: {
     extension: './src/extension/index.js',
   },
   output: {
     filename: '[name].[hash].js',
     path: path.resolve(__dirname, '../dist/extension'),
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: devMode,
+            },
+          },
+          'css-loader',
+        ],
+      },
+    ],
   },
   optimization: {
     splitChunks: {
@@ -27,5 +44,8 @@ module.exports = merge(baseConfig, {
     new HtmlWebpackPlugin({
       template: 'src/extension/index.html',
     }),
+    new MiniCssExtractPlugin({
+      filename: devMode ? '[name].css' : '[name].[hash].css',
+    }),
   ],
-});
+};

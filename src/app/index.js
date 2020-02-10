@@ -1,10 +1,9 @@
 import * as config from '../common/config';
-import './styles.css';
+import { convertToSeconds, getFormattedSplits } from '../common/calculation';
+import './styles.scss';
 
 const raceOptions = config.raceOptions;
-
-const mapRaceNameToDistance = config.raceDistances;
-
+const storageKey = 'savedSplits';
 const selectRace = document.getElementById('race');
 const inputTime = document.getElementById('time');
 
@@ -18,39 +17,49 @@ raceOptions.forEach(function(r) {
 inputTime.onfocus = function() {
   setErrorLabel(false);
 };
+
 inputTime.onkeypress = function(e) {
   switch (e.key) {
     case 'Enter':
     case 'Tab':
       updateSplits();
+      break;
     default:
       setErrorLabel(false);
   }
 };
-selectRace.onchange = updateSplits;
 
-document.onload = function() {
-  const paceCalculator = window.localStorage.getItem(['paceCalculator']);
-  if (paceCalculator.time) {
-    inputTime.setAttribute('value', result.paceCalculator.time);
-    selectRace.selectedIndex = result.paceCalculator.raceIndex;
-    displayResult(result.paceCalculator.splits);
-  }
+selectRace.onfocus = function() {
+  setErrorLabel(false);
+};
+
+window.onload = function() {
+  loadState();
 };
 
 function updateSplits() {
   try {
     const seconds = convertToSeconds(inputTime.value);
-    const splits = calculateSplits(seconds, getSelectedRaceName());
-    displayResult(formatSplits(splits));
-    // save state
-    window.localStorage.setItem('paceCalculator', {
-      time: inputTime.value,
-      raceIndex: selectRace.selectedIndex,
-      splits: formatSplits(splits),
-    });
+    const splits = getFormattedSplits(seconds, getSelectedRaceName());
+    displayResult(splits);
+    saveState(inputTime.value, selectRace.selectedIndex, splits);
   } catch (error) {
     setErrorLabel(true, error);
+  }
+}
+
+function saveState(time, raceIndex, splits) {
+  const storageItem = JSON.stringify({ time, raceIndex, splits });
+  window.localStorage.setItem(storageKey, storageItem);
+}
+
+function loadState() {
+  const savedSplitsString = window.localStorage.getItem('savedSplits');
+  const savedSplits = JSON.parse(savedSplitsString);
+  if (savedSplits && savedSplits.time) {
+    inputTime.setAttribute('value', savedSplits.time);
+    selectRace.selectedIndex = savedSplits.raceIndex;
+    displayResult(savedSplits.splits);
   }
 }
 
@@ -62,93 +71,6 @@ function setErrorLabel(visibility, labelText) {
   } else {
     errorLabel.classList.add('hidden');
   }
-}
-
-// convert time duration (hh:mm:ss) to a number in seconds
-function convertToSeconds(duration) {
-  const tokens = duration.split(':');
-  if (tokens.length > 3) {
-    throw new Error('Please format time as hh:mm:ss or mm:ss');
-  }
-
-  return tokens.reduceRight(function(seconds, current, index) {
-    if (current.match(/[^0-9\.]/)) {
-      throw new Error('Time must only contain positive numbers');
-    }
-    return seconds + Number(current) * Math.pow(60, tokens.length - 1 - index);
-  }, 0);
-}
-
-// calculate intermediate splits for the given distance (m) and time (s)
-function calculateSplits(time, raceName) {
-  if (raceName === 'default') {
-    return null;
-  }
-  return raceOptions
-    .find(function(race) {
-      return race.race === raceName;
-    })
-    .splits.map(function(splitName) {
-      return {
-        race: splitName,
-        time: Math.round(
-          (time * mapRaceNameToDistance[splitName]) /
-            mapRaceNameToDistance[raceName]
-        ),
-      };
-    });
-}
-
-// convert a number in seconds to a time duration
-function convertToDuration(duration) {
-  const durationBuilder = [];
-
-  while (duration > 0) {
-    const hours = Math.floor(duration / 3600);
-    let minutes = Math.floor(duration / 60);
-    let seconds = Math.floor(duration);
-    if (hours >= 1) {
-      durationBuilder.push(String(hours));
-      duration = duration - hours * 3600;
-      if (duration === 0) {
-        durationBuilder.push('00', '00');
-      }
-    } else if (minutes >= 1) {
-      if (durationBuilder.length > 0) {
-        // only want the leading zero on minutes if there are hours as well
-        minutes = String(minutes).padStart(2, '0');
-      }
-      durationBuilder.push(minutes);
-      duration = duration - minutes * 60;
-      if (duration === 0) {
-        durationBuilder.push('00');
-      }
-    } else {
-      if (durationBuilder.length > 0) {
-        // only want the leading zero on seconds if there are minutes as well
-        seconds = String(seconds).padStart(2, '0');
-      }
-      durationBuilder.push(seconds);
-      duration = 0;
-    }
-  }
-
-  return durationBuilder.length > 1
-    ? durationBuilder.join(':')
-    : String(durationBuilder[0]) + ' sec';
-}
-
-// convert to duration for an array of split objects
-function formatSplits(splits) {
-  if (splits) {
-    return splits.map(function(split) {
-      return {
-        race: split.race,
-        time: convertToDuration(split.time),
-      };
-    });
-  }
-  return null;
 }
 
 // get the value of the selected race in the dropdown

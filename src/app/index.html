@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html>
+  <head> </head>
 
-<head>
-</head>
-
-<body>
-  <div id="main">
-    <div class="input-container">
-      <label for="time">Time:</label>
-      <input id="time" type="text" name="time" placeholder="Enter Time"></input>
-      <select id="race" name="race">
-        <option value="default" selected>Select Distance</option>
-      </select>
+  <body>
+    <div class="flex-column main">
+      <h1>Pace Calculator</h1>
+      <div class="flex-column input-container">
+        <h2>1. Select Distance</h2>
+        <label class="flex-column input" for="race">
+          Distance
+          <select id="race" name="race">
+            <option value="default" selected>Select Distance</option>
+          </select>
+        </label>
+        <h2>2. Enter Time</h2>
+        <label class="flex-column input" for="time">
+          Time
+          <input id="time" type="text" name="time" placeholder="Enter Time" />
+        </label>
+      </div>
+      <span id="error-label" class="hidden"></span>
+      <div id="results" class="flex-column">
+        <h2 id="splits-table-title" class="hidden">3. Get Splits</h2>
+        <div id="splits-table" class="flex-column"></div>
+      </div>
     </div>
-    <span id="error-label" class="hidden"></span>
-    <h3 id="splits-table-title" class="hidden">Pace per:</h3>
-    <div id="splits-table"></div>
-  </div>
-</body>
-
+  </body>
 </html>
