@@ -5,19 +5,23 @@
   <body>
     <div class="flex-column main">
       <h1>Pace Calculator</h1>
-      <div class="flex-column input-container">
+      <div class="flex-column input-form">
         <h2>1. Select Distance</h2>
-        <label class="flex-column input" for="race">
-          Distance
+        <div class="flex-column input-container">
+          <label class="visually-hidden" for="race">
+            Distance
+          </label>
           <select id="race" name="race">
             <option value="default" selected>Select Distance</option>
           </select>
-        </label>
+        </div>
         <h2>2. Enter Time</h2>
-        <label class="flex-column input" for="time">
-          Time
+        <div class="flex-column input-container">
+          <label class="visually-hidden" for="time">
+            Time
+          </label>
           <input id="time" type="text" name="time" placeholder="Enter Time" />
-        </label>
+        </div>
       </div>
       <span id="error-label" class="hidden"></span>
       <div id="results" class="flex-column">
