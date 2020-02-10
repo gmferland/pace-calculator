@@ -2,7 +2,13 @@
 
 ## Development
 
-After cloning this repository, follow these steps to see the development version of the extension in your browser.
+After cloning this repository, run `npm install` to load package dependencies.
+
+### Web App
+
+1. Run `npm run dev` to build and serve the application on http://localhost:8080/.
+
+### Extension
 
 1.  Open Google Chrome and navigate to `chrome://extensions`.
 2.  Using the switch in the top right corner, turn on Development Mode.
