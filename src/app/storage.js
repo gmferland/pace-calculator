@@ -21,7 +21,7 @@ export function setUrlQueryParams(raceIndex, time) {
     url.searchParams.append('time', time);
   }
 
-  window.history.pushState({}, '', url.toJSON());
+  window.history.replaceState({}, '', url.toJSON());
 }
 
 export function parseUrlQueryParams() {
