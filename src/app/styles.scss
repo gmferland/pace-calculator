@@ -13,11 +13,14 @@ body {
   width: 100%;
   max-width: 1024px;
   text-align: center;
+  align-items: stretch;
 }
 
-.input-form {
+#input-form {
   justify-content: space-between;
   align-items: stretch;
+  width: 100%;
+  max-width: 500px;
   text-align: left;
 
   .input-container {
@@ -40,6 +43,7 @@ body {
 
 #results {
   text-align: left;
+  align-items: stretch;
 
   h2#splits-table-title {
     padding: 0 0 4px 0;

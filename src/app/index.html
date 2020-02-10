@@ -5,7 +5,7 @@
   <body>
     <div class="flex-column main">
       <h1>Pace Calculator</h1>
-      <div class="flex-column input-form">
+      <form id="input-form" class="flex-column">
         <h2>1. Select Distance</h2>
         <div class="flex-column input-container">
           <label class="visually-hidden" for="race">
@@ -22,7 +22,7 @@
           </label>
           <input id="time" type="text" name="time" placeholder="Enter Time" />
         </div>
-      </div>
+      </form>
       <span id="error-label" class="hidden"></span>
       <div id="results" class="flex-column">
         <h2 id="splits-table-title" class="hidden">3. Get Splits</h2>
