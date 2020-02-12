@@ -31,12 +31,9 @@ body {
     font-size: $base-font-size;
 
     input {
+      margin-top: 8px;
       border-radius: 4px;
       border: 1px solid $dark-grey;
-    }
-
-    input,
-    select {
       height: 48px;
       font-size: $base-font-size;
     }

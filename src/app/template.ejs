@@ -34,11 +34,8 @@
     <div class="flex-column main">
       <h1>Pace Calculator</h1>
       <form id="input-form" class="flex-column">
-        <h2>1. Enter Distance</h2>
-        <div class="flex-column input-container">
-          <label class="visually-hidden" for="race">
-            Distance
-          </label>
+        <label class="flex-column input-container" for="race">
+          Distance
           <input
             type="text"
             id="race"
@@ -52,14 +49,32 @@
             <option value="<%= option.race %>"><%- option.race %></option>
             <% }) %>
           </datalist>
-        </div>
-        <h2>2. Enter Time</h2>
-        <div class="flex-column input-container">
-          <label class="visually-hidden" for="time">
-            Time
+        </label>
+        <div class="flex-row">
+          <% htmlWebpackPlugin.options.units.forEach(function(unit) { %>
+          <label
+            class="flex-row flex-center-center input-container"
+            for="<%= unit.name %>"
+          >
+            <input
+              type="radio"
+              name="unit"
+              id="<%= unit.name %>"
+              value="<%= unit.id %>"
+            />
+            <%- unit.name %>
           </label>
-          <input id="time" type="text" name="time" placeholder="Enter Time" />
+          <% }) %>
         </div>
+        <label class="flex-column input-container" for="time">
+          Time
+          <input
+            id="time"
+            type="text"
+            name="time"
+            placeholder="Format hh:mm:ss, mm:ss, or ss"
+          />
+        </label>
         <button type="submit" class="submit-button">Calculate</button>
       </form>
       <span id="error-label" class="hidden"></span>

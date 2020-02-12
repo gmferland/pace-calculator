@@ -16,6 +16,7 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist/app'),
   },
+  devtool: devMode ? 'inline-source-map' : undefined,
   module: {
     rules: [
       {
@@ -49,6 +50,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/app/template.ejs',
       raceOptions: appConfig.raceOptions,
+      units: appConfig.units,
     }),
     new MiniCssExtractPlugin({
       filename: devMode ? '[name].css' : '[name].[hash].css',

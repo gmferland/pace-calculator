@@ -95,17 +95,19 @@ export function calculateSplits(time, raceName) {
   if (raceName === 'default') {
     return null;
   }
-  return config.raceOptions
-    .find(function(race) {
-      return race.race === raceName;
-    })
-    .splits.map(function(splitName) {
-      return {
-        race: splitName,
-        time: Math.round(
-          (time * config.raceDistances[splitName]) /
-            config.raceDistances[raceName]
-        ),
-      };
-    });
+  const matchingRaceOptions = config.raceOptions.find(function(race) {
+    return race.race === raceName;
+  });
+  if (!matchingRaceOptions) {
+    throw new Error('Sorry, custom distance is not supported yet.');
+  }
+  return matchingRaceOptions.splits.map(function(splitName) {
+    return {
+      race: splitName,
+      time: Math.round(
+        (time * config.raceDistances[splitName]) /
+          config.raceDistances[raceName]
+      ),
+    };
+  });
 }

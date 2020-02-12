@@ -62,4 +62,51 @@ module.exports = {
     'Half Marathon': 21097.5,
     'Marathon': 42195,
   },
+  units: [
+    {
+      id: 1,
+      name: 'Meters',
+      aliases: ['m'],
+      conversions: [
+        {
+          to: 2,
+          value: 0.001,
+        },
+        {
+          to: 3,
+          value: 0.0006213712,
+        },
+      ],
+    },
+    {
+      id: 2,
+      name: 'Kilometers',
+      aliases: ['k', 'km'],
+      conversions: [
+        {
+          to: 1,
+          value: 1000,
+        },
+        {
+          to: 3,
+          value: 0.6213712,
+        },
+      ],
+    },
+    {
+      id: 3,
+      name: 'Miles',
+      aliases: ['mi'],
+      conversions: [
+        {
+          to: 1,
+          value: 1609.344,
+        },
+        {
+          to: 2,
+          value: 1.609344,
+        },
+      ],
+    },
+  ],
 };
