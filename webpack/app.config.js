@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const appConfig = require('../src/common/config');
 
 const devMode = process.env.NODE_ENV === 'development';
 
@@ -46,7 +47,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/app/index.html',
+      template: 'src/app/template.ejs',
+      raceOptions: appConfig.raceOptions,
     }),
     new MiniCssExtractPlugin({
       filename: devMode ? '[name].css' : '[name].[hash].css',

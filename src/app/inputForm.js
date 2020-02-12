@@ -8,7 +8,8 @@ import {
 } from '../common/domManipulation';
 
 const form = document.getElementById('input-form');
-const selectRace = document.getElementById('race');
+const inputRace = document.getElementById('race');
+const raceOptions = document.getElementById('race-options');
 const inputTime = document.getElementById('time');
 
 export function initializeInput() {
@@ -17,7 +18,7 @@ export function initializeInput() {
     const child = document.createElement('option');
     child.setAttribute('value', r.race);
     child.innerHTML = r.race;
-    selectRace.appendChild(child);
+    raceOptions.appendChild(child);
   });
 
   // Configure event listeners
@@ -34,7 +35,7 @@ export function initializeInput() {
     setErrorLabel(false);
   };
 
-  selectRace.onchange = function() {
+  inputRace.onchange = function() {
     setErrorLabel(false);
   };
 }
@@ -42,10 +43,10 @@ export function initializeInput() {
 export function updateSplits() {
   try {
     const seconds = convertToSeconds(inputTime.value);
-    const splits = getFormattedSplits(seconds, getSelectedRaceName(selectRace));
+    const splits = getFormattedSplits(seconds, getSelectedRaceName(inputRace));
     displayResult(splits);
-    saveState(inputTime.value, selectRace.selectedIndex, splits);
-    setUrlQueryParams(selectRace.selectedIndex, inputTime.value);
+    saveState(inputTime.value, inputRace.selectedIndex, splits);
+    setUrlQueryParams(inputRace.selectedIndex, inputTime.value);
   } catch (error) {
     setErrorLabel(true, error);
   }
