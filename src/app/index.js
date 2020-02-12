@@ -10,13 +10,13 @@ window.onload = function() {
   const stateFromUrl = parseUrlQueryParams();
   if (stateFromUrl) {
     inputTime.setAttribute('value', stateFromUrl.time);
-    selectRace.selectedIndex = stateFromUrl.raceIndex;
+    selectRace.setAttribute('value', stateFromUrl.race);
     updateSplits();
   }
   const savedSplits = loadState();
-  if (savedSplits && savedSplits.time) {
+  if (savedSplits) {
     inputTime.setAttribute('value', savedSplits.time);
-    selectRace.selectedIndex = savedSplits.raceIndex;
+    selectRace.setAttribute('value', savedSplits.race);
     displayResult(savedSplits.splits);
   }
 };

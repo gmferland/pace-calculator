@@ -42,14 +42,6 @@ export function setErrorLabel(visibility, labelText) {
   }
 }
 
-/**
- * Get the value of the selected race in the dropdown
- * @param {*} selectRace The html select input containing different race distances.
- */
-export function getSelectedRaceName(selectRace) {
-  return selectRace.options[selectRace.selectedIndex].value;
-}
-
 function createRowForSplit(split) {
   const raceLabel = document.createElement('b');
   raceLabel.innerHTML = split.race + ':';

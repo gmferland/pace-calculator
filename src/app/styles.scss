@@ -41,6 +41,14 @@ body {
       font-size: $base-font-size;
     }
   }
+
+  .submit-button {
+    height: 48px;
+    font-size: $base-font-size;
+    border: 1px solid $dark-grey;
+    border-radius: 4px;
+    cursor: pointer;
+  }
 }
 
 #results {
