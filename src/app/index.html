@@ -12,6 +12,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="language" content="English">
   <meta name="revisit-after" content="3 days">
+  <link rel="manifest" href="./manifest.json" />
+
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116117867-2"></script>
   <script>
@@ -27,34 +29,38 @@
 <body>
   <div class="flex-column main">
     <h1>Pace Calculator</h1>
-    <form id="input-form" class="flex-column">
-      <h2>1. Select Distance</h2>
-      <div class="flex-column input-container">
-        <label class="visually-hidden" for="race">
-          Distance
-        </label>
-        <select id="race" name="race">
-          <option value="default" selected>Select Distance</option>
-        </select>
+    <form id="input-form">
+      <div>
+        <h2>Race</h2>
+        <div class="flex-column input-container">
+          <label class="visually-hidden" for="race">
+            Distance
+          </label>
+          <select id="race" name="race">
+            <option value="default" selected>Select Distance</option>
+          </select>
+        </div>
       </div>
-      <h2>2. Enter Time</h2>
-      <div class="flex-column input-container">
-        <label class="visually-hidden" for="time">
-          Time
-        </label>
-        <input id="time" type="text" name="time" placeholder="Enter Time" />
+      <div>
+        <h2>Goal Time</h2>
+        <div class="flex-column input-container">
+          <label class="visually-hidden" for="time">
+            Time
+          </label>
+          <input id="time" type="text" name="time" placeholder="Enter Time" />
+        </div>
       </div>
     </form>
     <span id="error-label" class="hidden"></span>
     <div id="results" class="flex-column">
-      <h2 id="splits-table-title" class="hidden">3. Get Splits</h2>
+      <h2 id="splits-table-title" class="hidden">Splits</h2>
       <div id="splits-table" class="flex-column"></div>
     </div>
   </div>
   <span id="error-label" class="hidden"></span>
   <div id="results" class="flex-column">
     <h2 id="splits-table-title" class="hidden">Get Splits</h2>
-    <div id="splits-table" class="flex-column"></div>
+    <div id="splits-table"></div>
   </div>
   </div>
 </body>

@@ -2,6 +2,7 @@ import { initializeInput, updateSplits } from './inputForm';
 import { loadState, parseUrlQueryParams } from './storage';
 import { displayResult } from '../common/domManipulation';
 import './styles.scss';
+import './font/style.css';
 
 window.onload = function() {
   initializeInput();
