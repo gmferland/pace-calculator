@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build:app": "rm -rf dist/app && webpack --config webpack/app.config.js --mode production",
-    "now-build": "now-build: npm run build:app",
+    "now-build": "npm run build:app",
     "build:extension": "rm -rf dist/extension && webpack --config webpack/extension.config.js --mode production",
     "dev": "webpack-dev-server --config webpack/app.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
