@@ -1,23 +1,23 @@
 export const raceOptions = [
   {
     race: '1500',
-    splits: ['400'],
+    splits: ['200', '400'],
   },
   {
     race: 'Mile',
-    splits: ['400'],
+    splits: ['200', '400'],
   },
   {
     race: '3k',
-    splits: ['400', '1k', 'Mile'],
+    splits: ['200', '400', '1k', 'Mile'],
   },
   {
     race: '2 Mile',
-    splits: ['400', '1k', 'Mile', '3k'],
+    splits: ['200', '400', '1k', 'Mile', '3k'],
   },
   {
     race: '5k',
-    splits: ['400', '1k', 'Mile', '3k'],
+    splits: ['200', '400', '1k', 'Mile', '3k'],
   },
   {
     race: '8k',
