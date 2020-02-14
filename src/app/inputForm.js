@@ -1,5 +1,9 @@
 import { saveState, setUrlQueryParams } from './storage';
-import { convertToSeconds, getFormattedSplits } from '../common/calculation';
+import {
+  convertToSeconds,
+  getFormattedSplits,
+  convertToMeters,
+} from '../common/calculation';
 import { displayResult, setErrorLabel } from '../common/domManipulation';
 
 export function initializeInput() {
@@ -30,10 +34,12 @@ export function updateSplits() {
   try {
     const input = getAndValidateInput();
     const seconds = convertToSeconds(input.time);
-    const splits = getFormattedSplits(seconds, input.distance);
+    const meters = convertToMeters(input.distance, input.unit);
+    const splits = getFormattedSplits(meters, seconds);
     displayResult(splits);
-    saveState(input.time, input.distance, splits);
-    setUrlQueryParams(input.distance, input.time);
+    // TODO: update saving logic to account for units
+    /* saveState(input.time, input.distance, splits);
+    setUrlQueryParams(input.distance, input.time); */
   } catch (error) {
     setErrorLabel(true, error);
   }
@@ -48,18 +54,17 @@ function getAndValidateInput() {
     throw new Error('Please enter a race distance.');
   }
 
-  // Todo: logic for unit conversion
-  /*   if (!inputUnit || !inputUnit.value) {
+  if (!inputUnit || !inputUnit.value) {
     throw new Error('Please select a distance unit.');
-  } */
+  }
 
   if (!inputTime.value) {
     throw new Error('Please enter a race time.');
   }
 
   return {
-    distance: inputRace.value,
-    /* unit: inputUnit.value, */
+    distance: Number(inputRace.value),
+    unit: inputUnit.value,
     time: inputTime.value,
   };
 }

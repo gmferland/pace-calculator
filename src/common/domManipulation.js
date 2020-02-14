@@ -1,6 +1,7 @@
 /**
  * Update the dom to show a list of the calculated splits
- * @param {Array<{ time: number, race: string }>} splits A list of split objects.
+ * @param {Array<{ name: string, time: string }>} splits A list of split objects.
+ * @returns {void}
  */
 export function displayResult(splits) {
   const splitsTable = document.getElementById('splits-table');
@@ -31,6 +32,7 @@ export function displayResult(splits) {
  * Display an error message, or hide an existing error message.
  * @param {boolean} visibility Whether the error label should be visible.
  * @param {string} labelText The error message to show.
+ * @returns {void}
  */
 export function setErrorLabel(visibility, labelText) {
   const errorLabel = document.getElementById('error-label');
@@ -42,9 +44,14 @@ export function setErrorLabel(visibility, labelText) {
   }
 }
 
+/**
+ * Create a DOM element containing the details of the split object.
+ * @param {{ name: string, time: string }} split A split object.
+ * @returns {HTMLElement} A DOM element.
+ */
 function createRowForSplit(split) {
   const raceLabel = document.createElement('b');
-  raceLabel.innerHTML = split.race + ':';
+  raceLabel.innerHTML = split.name + ':';
 
   const timeLabel = document.createElement('span');
   timeLabel.classList.add('time-label');

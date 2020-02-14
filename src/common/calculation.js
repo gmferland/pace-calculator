@@ -2,23 +2,25 @@ import * as config from './config';
 
 /**
  * Calculate splits and return a formatted value for display.
+ * @param {number} distance Total race distance in meters.
  * @param {number} time Total race time in seconds.
- * @param {string} distance Id (race name) corresponding to the total distance.
+ * @returns {Array<{ name: string, time: string }>} An array of formatted split objects.
  */
-export function getFormattedSplits(time, distance) {
-  const splits = calculateSplits(time, distance);
+export function getFormattedSplits(distance, time) {
+  const splits = calculateSplits(distance, time);
   return formatSplits(splits);
 }
 
 /**
  * Converts time in seconds to formatted duration for an array of split objects.
- * @param {{ race: string, time: number }} splits An array of split objects.
+ * @param {Array<{ name: string, time: number }>} splits An array of split objects.
+ * @returns {Array<{ name: string, time: string }>} An array of formatted split objects.
  */
 export function formatSplits(splits) {
   if (splits) {
     return splits.map(function(split) {
       return {
-        race: split.race,
+        name: split.name,
         time: convertToDuration(split.time),
       };
     });
@@ -87,27 +89,49 @@ export function convertToSeconds(duration) {
 }
 
 /**
- * Calculate intermediate splits for the given distance (m) and time (s)
- * @param {number} time A time in seconds.
- * @param {string} raceName An id (race name) of a given distance.
+ * Converts a distance in an arbitrary unit to a distance in meters.
+ * @param {number} distance A measure of distance.
+ * @param {string} unitId The id of the unit of measurement.
+ * @returns {number} The distance in meters.
  */
-export function calculateSplits(time, raceName) {
-  if (raceName === 'default') {
-    return null;
+export function convertToMeters(distance, unitId) {
+  const idOfMetersUnit = '1';
+  if (unitId === idOfMetersUnit) {
+    return distance;
   }
-  const matchingRaceOptions = config.raceOptions.find(function(race) {
-    return race.race === raceName;
+
+  const matchingUnit = config.units.find(function(unit) {
+    return unit.id === unitId;
   });
-  if (!matchingRaceOptions) {
-    throw new Error('Sorry, custom distance is not supported yet.');
+
+  if (!matchingUnit) {
+    throw new Error('Sorry, that unit of measurement is not recognized');
   }
-  return matchingRaceOptions.splits.map(function(splitName) {
-    return {
-      race: splitName,
-      time: Math.round(
-        (time * config.raceDistances[splitName]) /
-          config.raceDistances[raceName]
-      ),
-    };
+
+  const conversionCoefficient = matchingUnit.conversions.find(function(
+    conversion
+  ) {
+    return conversion.to === idOfMetersUnit;
   });
+
+  return distance * conversionCoefficient.value;
+}
+
+/**
+ * Calculate intermediate splits for the given distance (m) and time (s)
+ * @param {number} distance A distance in meters.
+ * @param {number} time A time in seconds.
+ * @returns {Array<{ name: string, time: number }>} An array of split objects.
+ */
+export function calculateSplits(distance, time) {
+  return config.splits
+    .filter(function(split) {
+      return split.visible(distance);
+    })
+    .map(function(split) {
+      return {
+        name: split.name,
+        time: Math.round((time * split.distance) / distance),
+      };
+    });
 }
