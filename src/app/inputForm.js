@@ -4,6 +4,7 @@ import {
   getFormattedSplits,
   convertToMeters,
 } from '../common/calculation';
+import { raceOptions } from '../common/config';
 import { displayResult, setErrorLabel } from '../common/domManipulation';
 
 export function initializeInput() {
@@ -37,9 +38,12 @@ export function updateSplits() {
     const meters = convertToMeters(input.distance, input.unit);
     const splits = getFormattedSplits(meters, seconds);
     displayResult(splits);
-    // TODO: update saving logic to account for units
-    /* saveState(input.time, input.distance, splits);
-    setUrlQueryParams(input.distance, input.time); */
+
+    const distanceToSave = input.race || input.distance.toString();
+    // Only save unit when distance is custom
+    const unitToSave = input.race ? null : input.unit;
+    saveState(distanceToSave, unitToSave, input.time);
+    setUrlQueryParams(distanceToSave, unitToSave, input.time);
   } catch (error) {
     setErrorLabel(true, error);
   }
@@ -54,8 +58,21 @@ function getAndValidateInput() {
     throw new Error('Please enter a race distance.');
   }
 
-  if (!inputUnit || !inputUnit.value) {
-    throw new Error('Please select a distance unit.');
+  // Check to see if the race input is configured or custom
+  let distance;
+  let unit;
+  const matchingRace = raceOptions.find(function(race) {
+    return race.name === inputRace.value;
+  });
+  if (matchingRace) {
+    ({ distance, unit } = matchingRace);
+  } else {
+    // if custom, distance must be a number and unit is required
+    if (!inputUnit || !inputUnit.value) {
+      throw new Error('Please select a distance unit.');
+    }
+    distance = Number(inputRace.value);
+    unit = inputUnit.value;
   }
 
   if (!inputTime.value) {
@@ -63,8 +80,9 @@ function getAndValidateInput() {
   }
 
   return {
-    distance: Number(inputRace.value),
-    unit: inputUnit.value,
+    distance,
+    race: matchingRace && matchingRace.name,
+    unit,
     time: inputTime.value,
   };
 }

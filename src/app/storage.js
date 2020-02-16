@@ -1,24 +1,53 @@
+import { raceOptions } from '../common/config';
+import { getDistanceAndUnitValue } from '../common/calculation';
+
 const storageKey = 'savedSplits';
 
-export function saveState(time, race, splits) {
-  const storageItem = JSON.stringify({ time, race, splits });
+/**
+ * Save state to local storage.
+ * @param {string} distance A distance input value.
+ * @param {string} unitId The unit of measurement of the distance.
+ * @param {string} duration A duration (hh:mm:ss).
+ */
+export function saveState(distance, unitId, duration) {
+  const storageItem = JSON.stringify({ distance, unitId, duration });
   window.localStorage.setItem(storageKey, storageItem);
 }
 
+/**
+ * Load saved state from local storage.
+ * @returns {{ distance: string, unit: string, time: string }} A triplet of values to prime the form inputs.
+ */
 export function loadState() {
-  const savedSplits = window.localStorage.getItem('savedSplits');
-  return JSON.parse(savedSplits);
+  const storedItem = window.localStorage.getItem(storageKey);
+  const savedState = JSON.parse(storedItem);
+
+  if (savedState) {
+    return {
+      distance: savedState.distance,
+      unit: savedState.unitId,
+      time: savedState.duration,
+    };
+  }
+
+  return null;
 }
 
-export function setUrlQueryParams(race, time) {
+export function setUrlQueryParams(distance, unitId, duration) {
   const location = window.location.href;
   const url = new URL(location);
-  if (url.searchParams.get('race')) {
-    url.searchParams.set('race', race);
-    url.searchParams.set('time', time);
+  if (url.searchParams.get('distance')) {
+    url.searchParams.set('distance', distance);
+    url.searchParams.set('time', duration);
+    if (unitId) {
+      url.searchParams.set('unit', unitId);
+    }
   } else {
-    url.searchParams.append('race', race);
-    url.searchParams.append('time', time);
+    url.searchParams.append('distance', distance);
+    url.searchParams.append('time', duration);
+    if (unitId) {
+      url.searchParams.append('unit', unitId);
+    }
   }
 
   window.history.replaceState({}, '', url.toJSON());
@@ -26,11 +55,13 @@ export function setUrlQueryParams(race, time) {
 
 export function parseUrlQueryParams() {
   const url = new URL(window.location.href);
-  const race = url.searchParams.get('race');
+  const distance = url.searchParams.get('distance');
   const time = url.searchParams.get('time');
-  if (race && time) {
+  const unit = url.searchParams.get('unit');
+  if (distance && time) {
     return {
-      race,
+      distance,
+      unit,
       time,
     };
   }

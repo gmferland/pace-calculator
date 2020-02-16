@@ -31,6 +31,7 @@ export function formatSplits(splits) {
 /**
  * Convert a number in seconds to a time duration.
  * @param {number} time A time in seconds.
+ * @returns {string} A formatted duration.
  */
 function convertToDuration(time) {
   const durationBuilder = [];
@@ -73,6 +74,7 @@ function convertToDuration(time) {
 /**
  * Convert time duration (hh:mm:ss) to a number in seconds.
  * @param {string} duration A formatted duration string.
+ * @returns {number} The total time in seconds.
  */
 export function convertToSeconds(duration) {
   const tokens = duration.split(':');
