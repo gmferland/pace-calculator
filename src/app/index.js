@@ -1,6 +1,7 @@
 import { initializeInput, updateSplits } from './inputForm';
 import { loadState, parseUrlQueryParams } from './storage';
 import './styles.scss';
+import './font/style.css';
 
 window.onload = function() {
   initializeInput();

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build:app": "npm run lint && rm -rf dist/app && webpack --config webpack/app.config.js --mode production",
+    "now-build": "npm run build:app",
     "build:extension": "rm -rf dist/extension && webpack --config webpack/extension.config.js --mode production",
     "dev": "webpack-dev-server --config webpack/app.config.js",
     "lint:ejs": "ejslint src/app/template.ejs",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "css-loader": "^3.4.2",
     "ejs-lint": "^1.0.1",
+    "file-loader": "^5.0.2",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.13.1",
