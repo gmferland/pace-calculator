@@ -41,6 +41,8 @@ export function setUrlQueryParams(distance, unitId, duration) {
     url.searchParams.set('time', duration);
     if (unitId) {
       url.searchParams.set('unit', unitId);
+    } else {
+      url.searchParams.delete('unit');
     }
   } else {
     url.searchParams.append('distance', distance);

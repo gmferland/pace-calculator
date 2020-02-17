@@ -17,7 +17,7 @@ body {
 
 .main {
   width: 100%;
-  max-width: 1024px;
+  max-width: 768px;
   padding: 16px 24px;
   align-items: stretch;
 }
@@ -64,6 +64,11 @@ h2 {
     flex-direction: row;
     justify-content: space-between;
     align-items: stretch;
+
+    &.disabled {
+      opacity: 0.3;
+      pointer-events: none;
+    }
 
     .input-container {
       display: flex;

@@ -33,6 +33,31 @@ export function initializeInput() {
 
   inputRace.onchange = function() {
     setErrorLabel(false);
+    const unitInputGroup = document.getElementsByClassName('input-unit');
+    if (unitInputGroup && unitInputGroup.length > 0) {
+      enableUnitInput(unitInputGroup);
+    }
+  };
+
+  inputRace.onblur = function(e) {
+    const value = e.target.value;
+    const unitInputGroup = document.getElementsByClassName('input-unit');
+    if (!(unitInputGroup && unitInputGroup.length > 0)) {
+      return;
+    }
+    if (
+      raceOptions.some(function(race) {
+        return race.name === value;
+      })
+    ) {
+      if (!unitInputGroup[0].classList.contains('disabled')) {
+        disableUnitInput(unitInputGroup);
+      }
+    } else {
+      if (unitInputGroup[0].classList.contains('disabled')) {
+        enableUnitInput(unitInputGroup);
+      }
+    }
   };
 
   inputUnit.forEach(function(unitInput) {
@@ -94,4 +119,28 @@ function getAndValidateInput() {
     unit,
     time: inputTime.value,
   };
+}
+
+export function disableUnitInput(unitInputGroup) {
+  const selectedUnit = document.querySelector('input[name=unit]:checked');
+  if (selectedUnit) {
+    selectedUnit.setAttribute('checked', false);
+    const selectedUnitLabel = unitInputGroup[0].querySelector('label.checked');
+    if (selectedUnitLabel) {
+      selectedUnitLabel.classList.remove('checked');
+    }
+  }
+  const allUnitInputs = document.querySelectorAll('input[name=unit]');
+  allUnitInputs.forEach(function(unitInput) {
+    unitInput.setAttribute('disabled', 'disabled');
+  });
+  unitInputGroup[0].classList.add('disabled');
+}
+
+function enableUnitInput(unitInputGroup) {
+  const allUnitInputs = document.querySelectorAll('input[name=unit]');
+  allUnitInputs.forEach(function(unitInput) {
+    unitInput.removeAttribute('disabled');
+  });
+  unitInputGroup[0].classList.remove('disabled');
 }
