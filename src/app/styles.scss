@@ -18,7 +18,7 @@ body {
 .main {
   width: 100%;
   max-width: 1024px;
-  padding: 16px 24px;
+  padding: ($base-spacing * 4) ($base-spacing * 6);
   align-items: stretch;
 }
 
@@ -30,7 +30,7 @@ h1 {
 h2 {
   font-weight: 500;
   font-family: 'GT America Expanded';
-  font-size: 20px;
+  font-size: $base-font-size;
 }
 
 #input-form {
@@ -38,10 +38,10 @@ h2 {
   text-align: left;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-column-gap: 16px;
+  grid-column-gap: $base-spacing * 4;
 
   .input-container {
-    margin-bottom: 24px;
+    margin-bottom: $base-spacing * 6;
     width: 100%;
     flex: 1;
     text-align: left;
@@ -67,7 +67,7 @@ h2 {
   align-items: stretch;
 
   h2#splits-table-title {
-    padding: 0 0 4px 0;
+    padding: 0 0 $base-spacing 0;
     margin-bottom: 0;
     border-bottom: 1px solid $dark-grey;
   }
@@ -77,13 +77,13 @@ h2 {
   font-size: $base-font-size;
   display: grid;
   grid-template-columns: 1fr;
-  grid-column-gap: 16px;
+  grid-column-gap: $base-spacing * 4;
 
   .pace-row {
     display: grid;
     grid-template-columns: 96px 96px;
-    grid-column-gap: 16px;
-    grid-row-gap: 16px;
+    grid-column-gap: $base-spacing * 4;
+    grid-row-gap: $base-spacing * 4;
     border-bottom: 1px solid whitesmoke;
     padding: 8px 0;
   }
@@ -91,14 +91,14 @@ h2 {
 
 #error-label {
   color: red;
-  padding-top: 8px;
+  margin-top: $base-spacing * 2;
 }
 
 .pace-row {
   display: flex;
-  padding-top: 8px;
+  padding-top: $base-spacing * 2;
 }
 
 .time-label {
-  padding-left: 4px;
+  padding-left: $base-spacing;
 }
