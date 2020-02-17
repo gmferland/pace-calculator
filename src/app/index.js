@@ -1,5 +1,6 @@
 import { initializeInput, updateSplits } from './inputForm';
 import { loadState, parseUrlQueryParams } from './storage';
+import { highlightLabelForChecked } from '../common/domManipulation';
 import './styles.scss';
 import './font/style.css';
 
@@ -17,6 +18,7 @@ window.onload = function() {
       );
       if (unitInput) {
         unitInput.setAttribute('checked', true);
+        highlightLabelForChecked(unitInput);
       }
     }
     updateSplits();

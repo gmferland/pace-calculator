@@ -5,12 +5,17 @@ import {
   convertToMeters,
 } from '../common/calculation';
 import { raceOptions } from '../common/config';
-import { displayResult, setErrorLabel } from '../common/domManipulation';
+import {
+  displayResult,
+  handleUnitInputChange,
+  setErrorLabel,
+} from '../common/domManipulation';
 
 export function initializeInput() {
   const form = document.getElementById('input-form');
   const inputRace = document.getElementById('race');
   const inputTime = document.getElementById('time');
+  const inputUnit = document.querySelectorAll('input[name=unit]');
 
   // Configure event listeners
   inputTime.onfocus = function() {
@@ -29,6 +34,10 @@ export function initializeInput() {
   inputRace.onchange = function() {
     setErrorLabel(false);
   };
+
+  inputUnit.forEach(function(unitInput) {
+    unitInput.onchange = handleUnitInputChange(unitInput);
+  });
 }
 
 export function updateSplits() {
