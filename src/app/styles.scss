@@ -15,16 +15,27 @@ body {
     'Segoe UI Symbol';
 }
 
+.header {
+  position: fixed;
+  background: black;
+  color: white;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
 .main {
   width: 100%;
-  max-width: 1024px;
-  padding: ($base-spacing * 4) ($base-spacing * 6);
+  margin-top: 172px;
   align-items: stretch;
 }
 
 h1 {
   font-family: 'GT America Expanded';
   font-weight: 900;
+  font-size: 14px;
+  text-transform: uppercase;
 }
 
 h2 {
@@ -37,7 +48,7 @@ h2 {
   width: 100%;
   text-align: left;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: auto auto;
   grid-column-gap: $base-spacing * 4;
 
   .input-container {
@@ -57,6 +68,7 @@ h2 {
     select {
       height: 44px;
       font-size: $base-font-size;
+      background: white;
       font-family: 'GT America Mono';
     }
   }

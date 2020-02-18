@@ -9,6 +9,7 @@
   <meta name="keywords"
     content="race pace calculator, pace calculator, running calculator, training calculator, athletics calculator">
   <meta name="robots" content="index, follow">
+  <meta name="viewport" content="initial-scale=1.0, width=device-width">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="language" content="English">
   <meta name="revisit-after" content="3 days">
@@ -27,30 +28,38 @@
 </head>
 
 <body>
-  <div class="flex-column main">
-    <h1>Pace Calculator</h1>
-    <form id="input-form">
-      <div>
-        <h2>Race</h2>
-        <div class="flex-column input-container">
-          <label class="visually-hidden" for="race">
-            Distance
-          </label>
-          <select id="race" name="race">
-            <option value="default" selected>Select Distance</option>
-          </select>
-        </div>
+  <header class="header">
+    <nav class="nav">
+      <div class="container">
+        <h1>Pace Calculator</h1>
       </div>
-      <div>
-        <h2>Goal Time</h2>
-        <div class="flex-column input-container">
-          <label class="visually-hidden" for="time">
-            Time
-          </label>
-          <input id="time" type="text" name="time" placeholder="Enter Time" />
+    </nav>
+    <div class="container">
+      <form id="input-form">
+        <div>
+          <h2>Race</h2>
+          <div class="flex-column input-container">
+            <label class="visually-hidden" for="race">
+              Distance
+            </label>
+            <select id="race" name="race">
+              <option value="default" selected>Select Distance</option>
+            </select>
+          </div>
         </div>
-      </div>
-    </form>
+        <div>
+          <h2>Goal Time</h2>
+          <div class="flex-column input-container">
+            <label class="visually-hidden" for="time">
+              Time
+            </label>
+            <input id="time" type="text" name="time" placeholder="Enter Time" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </header>
+  <div class="flex-column main container">
     <span id="error-label" class="hidden"></span>
     <div id="results" class="flex-column">
       <h2 id="splits-table-title" class="hidden">Splits</h2>
