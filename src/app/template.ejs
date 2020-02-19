@@ -61,15 +61,15 @@
         </label>
         <div class="flex-row input-unit">
           <% htmlWebpackPlugin.options.units.forEach(function(unit) { %>
-          <label class="input-container" for="<%= unit.name %>">
+          <div class="input-container">
             <input
               type="radio"
               name="unit"
               id="<%= unit.name %>"
               value="<%= unit.id %>"
             />
-            <%- unit.name %>
-          </label>
+            <label for="<%= unit.name %>"><%- unit.name %></label>
+          </div>
           <% }) %>
         </div>
         <button type="submit" class="submit-button">Calculate</button>

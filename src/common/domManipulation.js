@@ -65,32 +65,20 @@ function createRowForSplit(split) {
   return row;
 }
 
-/**
- * Handle change events for the unit input
- * @param {HTMLInputElement} input A radio button input.
- */
-export function handleUnitInputChange(input) {
-  return function(event) {
-    const previouslyChecked = document.querySelectorAll('label.checked');
-    if (previouslyChecked && previouslyChecked.length > 0) {
-      previouslyChecked.forEach(function(element) {
-        element.classList.remove('checked');
-      });
-    }
-    highlightLabelForChecked(input);
-  };
+export function disableUnitInput() {
+  const selectedUnit = document.querySelector('input[name=unit]:checked');
+  if (selectedUnit) {
+    selectedUnit.removeAttribute('checked');
+  }
+  const allUnitInputs = document.querySelectorAll('input[name=unit]');
+  allUnitInputs.forEach(function(unitInput) {
+    unitInput.setAttribute('disabled', 'disabled');
+  });
 }
 
-/**
- * Add a class to the parent label of this input to show it's selected
- * @param {HTMLInputElement} input A radio button input.
- */
-export function highlightLabelForChecked(input) {
-  if (
-    input.parentElement &&
-    input.parentElement.tagName.toLowerCase() === 'label' &&
-    !input.parentElement.classList.contains('checked')
-  ) {
-    input.parentElement.classList.add('checked');
-  }
+export function enableUnitInput() {
+  const allUnitInputs = document.querySelectorAll('input[name=unit]');
+  allUnitInputs.forEach(function(unitInput) {
+    unitInput.removeAttribute('disabled');
+  });
 }

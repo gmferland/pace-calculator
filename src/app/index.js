@@ -1,6 +1,6 @@
-import { disableUnitInput, initializeInput, updateSplits } from './inputForm';
+import { initializeInput, updateSplits } from './inputForm';
+import { disableUnitInput } from '../common/domManipulation';
 import { loadState, parseUrlQueryParams } from './storage';
-import { highlightLabelForChecked } from '../common/domManipulation';
 import './styles.scss';
 import './font/style.css';
 
@@ -18,13 +18,9 @@ window.onload = function() {
       );
       if (unitInput) {
         unitInput.setAttribute('checked', true);
-        highlightLabelForChecked(unitInput);
       }
     } else {
-      const unitInputGroup = document.getElementsByClassName('input-unit');
-      if (unitInputGroup && unitInputGroup.length > 0) {
-        disableUnitInput(unitInputGroup);
-      }
+      disableUnitInput();
     }
     updateSplits();
   } else {
