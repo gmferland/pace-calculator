@@ -9,7 +9,7 @@
     "build:extension": "rm -rf dist/extension && webpack --config webpack/extension.config.js --mode production",
     "dev": "webpack-dev-server --config webpack/app.config.js",
     "lint:ejs": "ejslint src/app/template.ejs",
-    "lint:": "npm run lint:ejs",
+    "lint": "npm run lint:ejs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

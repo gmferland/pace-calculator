@@ -15,9 +15,27 @@ body {
     'Segoe UI Symbol';
 }
 
+.nav {
+  padding: 8px 0;
+  background: black;
+  margin-bottom: 16px;
+  color: white;
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  padding-bottom: 16px;
+  left: 0;
+  background: white;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  right: 0;
+  top: 0;
+}
+
 .main {
   width: 100%;
-  max-width: 768px;
+  margin-top: 200px;
   padding: 16px 24px;
   align-items: stretch;
 }
@@ -25,36 +43,44 @@ body {
 h1 {
   font-family: 'GT America Expanded';
   font-weight: 900;
+  font-size: 14px;
+  text-transform: uppercase;
 }
 
 h2 {
   font-weight: 500;
   font-family: 'GT America Expanded';
-  font-size: 20px;
+  font-size: $base-font-size;
 }
 
 #input-form {
   width: 100%;
   text-align: left;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-column-gap: 16px;
+  grid-template-columns: auto auto;
+  grid-column-gap: $base-spacing * 4;
+
+  label {
+    font-weight: 500;
+    font-family: 'GT America Expanded';
+    font-size: 16px;
+  }
 
   .input-container {
-    margin-bottom: 24px;
+    margin-bottom: $base-spacing * 6;
     width: 100%;
     flex: 1;
     text-align: left;
-    font-size: $base-font-size;
 
     input {
       margin-top: 8px;
       padding: 0 8px;
       border-radius: $default-border-radius;
-      border: 1px solid $dark-grey;
+      border: 1px solid $black;
       height: 44px;
       font-family: 'GT America Mono';
       font-size: $base-font-size;
+      background: none;
       font-family: 'GT America Mono';
     }
   }
@@ -62,13 +88,14 @@ h2 {
   .input-unit {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: stretch;
+    justify-content: flex-start;
 
     .input-container {
       display: flex;
+      justify-content: flex-start;
       position: relative;
-      margin: 0 8px;
+      margin: 0 4px;
+      flex: 0;
 
       &:first-child {
         margin-left: 0;
@@ -80,14 +107,15 @@ h2 {
 
       label {
         display: flex;
+        font-family: 'GT America';
         justify-content: center;
         align-items: center;
-        background-color: white;
+        background-color: transparent;
         border-radius: $default-border-radius;
-        border: 1px solid $dark-grey;
+        border: 1px solid $black;
         cursor: pointer;
+        padding: 0 12px;
         height: 100%;
-        width: 100%;
 
         &:hover {
           background-color: $light-grey;
@@ -107,7 +135,8 @@ h2 {
         z-index: -10;
 
         &:checked + label {
-          background-color: $light-yellow;
+          background-color: $black;
+          color: white;
         }
 
         &[disabled] + label {
@@ -123,12 +152,14 @@ h2 {
   }
 
   .submit-button {
-    height: 48px;
+    height: 40px;
     font-family: 'GT America';
     font-size: $base-font-size;
-    border: 1px solid $dark-grey;
+    border: 1px solid $black;
     border-radius: $default-border-radius;
     cursor: pointer;
+    color: white;
+    background: $black;
   }
 }
 
@@ -137,7 +168,7 @@ h2 {
   align-items: stretch;
 
   h2#splits-table-title {
-    padding: 0 0 4px 0;
+    padding: 0 0 $base-spacing 0;
     margin-bottom: 0;
     border-bottom: 1px solid $dark-grey;
   }
@@ -147,13 +178,13 @@ h2 {
   font-size: $base-font-size;
   display: grid;
   grid-template-columns: 1fr;
-  grid-column-gap: 16px;
+  grid-column-gap: $base-spacing * 4;
 
   .pace-row {
     display: grid;
     grid-template-columns: 96px 96px;
-    grid-column-gap: 16px;
-    grid-row-gap: 16px;
+    grid-column-gap: $base-spacing * 4;
+    grid-row-gap: $base-spacing * 4;
     border-bottom: 1px solid whitesmoke;
     padding: 8px 0;
   }
@@ -161,14 +192,14 @@ h2 {
 
 #error-label {
   color: red;
-  padding-top: 8px;
+  margin-top: $base-spacing * 2;
 }
 
 .pace-row {
   display: flex;
-  padding-top: 8px;
+  padding-top: $base-spacing * 2;
 }
 
 .time-label {
-  padding-left: 4px;
+  padding-left: $base-spacing;
 }
