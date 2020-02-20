@@ -1,6 +1,6 @@
 import { initializeInput, updateSplits } from './inputForm';
+import { disableUnitInput } from '../common/domManipulation';
 import { loadState, parseUrlQueryParams } from './storage';
-import { displayResult } from '../common/domManipulation';
 import './styles.scss';
 import './font/style.css';
 
@@ -11,13 +11,32 @@ window.onload = function() {
   const stateFromUrl = parseUrlQueryParams();
   if (stateFromUrl) {
     inputTime.setAttribute('value', stateFromUrl.time);
-    selectRace.selectedIndex = stateFromUrl.raceIndex;
+    selectRace.setAttribute('value', stateFromUrl.distance);
+    if (stateFromUrl.unit) {
+      const unitInput = document.querySelector(
+        `input[name=unit][value="${stateFromUrl.unit}"]`
+      );
+      if (unitInput) {
+        unitInput.setAttribute('checked', true);
+      }
+    } else {
+      disableUnitInput();
+    }
     updateSplits();
-  }
-  const savedSplits = loadState();
-  if (savedSplits && savedSplits.time) {
-    inputTime.setAttribute('value', savedSplits.time);
-    selectRace.selectedIndex = savedSplits.raceIndex;
-    displayResult(savedSplits.splits);
+  } else {
+    const savedSplits = loadState();
+    if (savedSplits) {
+      inputTime.setAttribute('value', savedSplits.time);
+      selectRace.setAttribute('value', savedSplits.distance);
+      if (savedSplits.unit) {
+        const unitInput = document.querySelector(
+          `input[name=unit][value="${savedSplits.unit}"]`
+        );
+        if (unitInput) {
+          unitInput.setAttribute('checked', true);
+        }
+      }
+      updateSplits();
+    }
   }
 };

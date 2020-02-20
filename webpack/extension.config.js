@@ -6,7 +6,7 @@ const devMode = process.env.NODE_ENV === 'development';
 
 module.exports = {
   entry: {
-    extension: './src/extension/index.js',
+    extension: './src/extension/popup.js',
   },
   output: {
     filename: '[name].[hash].js',

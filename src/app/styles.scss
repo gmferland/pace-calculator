@@ -15,11 +15,16 @@ body {
     'Segoe UI Symbol';
 }
 
+.nav {
+  padding: 16px 0;
+}
+
 .header {
   position: fixed;
   background: black;
   color: white;
   width: 100%;
+  padding-bottom: 16px;
   left: 0;
   right: 0;
   top: 0;
@@ -27,7 +32,8 @@ body {
 
 .main {
   width: 100%;
-  margin-top: 172px;
+  margin-top: 160px;
+  padding: 16px 24px;
   align-items: stretch;
 }
 
@@ -51,26 +57,101 @@ h2 {
   grid-template-columns: auto auto;
   grid-column-gap: $base-spacing * 4;
 
+  label {
+    font-weight: 500;
+    font-family: 'GT America Expanded';
+    font-size: 16px;
+  }
+
   .input-container {
     margin-bottom: $base-spacing * 6;
     width: 100%;
     flex: 1;
     text-align: left;
-    font-size: $base-font-size;
 
     input {
-      border-radius: 4px;
+      margin-top: 8px;
+      padding: 0 8px;
+      border-radius: $default-border-radius;
       border: 1px solid $dark-grey;
-      font-family: 'GT America Mono';
-    }
-
-    input,
-    select {
       height: 44px;
+      font-family: 'GT America Mono';
       font-size: $base-font-size;
       background: white;
       font-family: 'GT America Mono';
     }
+  }
+
+  .input-unit {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+
+    .input-container {
+      display: flex;
+      position: relative;
+      margin: 0 8px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        border-radius: $default-border-radius;
+        border: 1px solid $dark-grey;
+        cursor: pointer;
+        height: 100%;
+        width: 100%;
+
+        &:hover {
+          background-color: $light-grey;
+        }
+      }
+
+      input[type='radio'] {
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+        border: none;
+        position: absolute;
+        height: 0;
+        width: 0;
+        top: 0;
+        left: 0;
+        z-index: -10;
+
+        &:checked + label {
+          background-color: $light-yellow;
+        }
+
+        &[disabled] + label {
+          opacity: 0.3;
+          pointer-events: none;
+        }
+
+        &:focus + label {
+          outline: rgba(0, 103, 244, 0.247) auto 5px;
+        }
+      }
+    }
+  }
+
+  .submit-button {
+    height: 48px;
+    font-family: 'GT America';
+    font-size: $base-font-size;
+    border: 1px solid $dark-grey;
+    border-radius: $default-border-radius;
+    cursor: pointer;
   }
 }
 
