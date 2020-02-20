@@ -64,3 +64,21 @@ function createRowForSplit(split) {
 
   return row;
 }
+
+export function disableUnitInput() {
+  const selectedUnit = document.querySelector('input[name=unit]:checked');
+  if (selectedUnit) {
+    selectedUnit.removeAttribute('checked');
+  }
+  const allUnitInputs = document.querySelectorAll('input[name=unit]');
+  allUnitInputs.forEach(function(unitInput) {
+    unitInput.setAttribute('disabled', 'disabled');
+  });
+}
+
+export function enableUnitInput() {
+  const allUnitInputs = document.querySelectorAll('input[name=unit]');
+  allUnitInputs.forEach(function(unitInput) {
+    unitInput.removeAttribute('disabled');
+  });
+}

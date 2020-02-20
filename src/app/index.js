@@ -1,4 +1,5 @@
 import { initializeInput, updateSplits } from './inputForm';
+import { disableUnitInput } from '../common/domManipulation';
 import { loadState, parseUrlQueryParams } from './storage';
 import './styles.scss';
 import './font/style.css';
@@ -18,6 +19,8 @@ window.onload = function() {
       if (unitInput) {
         unitInput.setAttribute('checked', true);
       }
+    } else {
+      disableUnitInput();
     }
     updateSplits();
   } else {

@@ -59,20 +59,17 @@
             placeholder="Format hh:mm:ss, mm:ss, or ss"
           />
         </label>
-        <div class="flex-row">
+        <div class="flex-row input-unit">
           <% htmlWebpackPlugin.options.units.forEach(function(unit) { %>
-          <label
-            class="flex-row flex-center-center input-container"
-            for="<%= unit.name %>"
-          >
+          <div class="input-container">
             <input
               type="radio"
               name="unit"
               id="<%= unit.name %>"
               value="<%= unit.id %>"
             />
-            <%- unit.name %>
-          </label>
+            <label for="<%= unit.name %>"><%- unit.name %></label>
+          </div>
           <% }) %>
         </div>
         <button type="submit" class="submit-button">Calculate</button>
