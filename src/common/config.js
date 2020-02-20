@@ -149,7 +149,7 @@ module.exports = {
     },
     {
       id: '2',
-      name: 'Kilometers',
+      name: 'Km',
       aliases: ['k', 'km'],
       conversions: [
         {
