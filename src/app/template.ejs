@@ -35,27 +35,31 @@
 
     <div class="container">
       <form id="input-form">
-        <label class="flex-column input-container" for="race">
-          <span>Race Distance</span>
-          <input type="text" id="race" name="race" list="race-options" placeholder="Enter Distance" />
-          <datalist id="race-options">
-            <% htmlWebpackPlugin.options.raceOptions.forEach(function(option) {
-                  %>
-            <option value="<%= option.name %>"><%- option.name %></option>
-            <% }) %>
-          </datalist>
-        </label>
-        <label class="flex-column input-container" for="time">
-          Goal Time
-          <input id="time" type="text" name="time" placeholder="Format hh:mm:ss, mm:ss, or ss" />
-        </label>
-        <div class="flex-row input-unit">
-          <% htmlWebpackPlugin.options.units.forEach(function(unit) { %>
-          <div class="input-container">
-            <input type="radio" name="unit" id="<%= unit.name %>" value="<%= unit.id %>" />
-            <label for="<%= unit.name %>"><%- unit.name %></label>
+        <div class="grid">
+          <div class="distance">
+            <label class="flex-column input-container" for="race">
+              <span>Distance</span>
+              <input type="text" id="race" name="race" list="race-options" placeholder="Enter Distance" />
+              <datalist id="race-options">
+                <% htmlWebpackPlugin.options.raceOptions.forEach(function(option) {
+                                        %>
+                <option value="<%= option.name %>"><%- option.name %></option>
+                <% }) %>
+              </datalist>
+            </label>
+            <div class="flex-row input-unit">
+              <% htmlWebpackPlugin.options.units.forEach(function(unit) { %>
+              <div class="input-container">
+                <input type="radio" name="unit" id="<%= unit.name %>" value="<%= unit.id %>" />
+                <label for="<%= unit.name %>"><%- unit.name %></label>
+              </div>
+              <% }) %>
+            </div>
           </div>
-          <% }) %>
+          <label class="flex-column input-container" for="time">
+            Goal Time
+            <input id="time" type="text" name="time" placeholder="Format hh:mm:ss, mm:ss, or ss" />
+          </label>
         </div>
         <button type="submit" class="submit-button">Calculate</button>
       </form>
