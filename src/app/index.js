@@ -1,6 +1,6 @@
 import { initializeInput, updateSplits } from './inputForm';
 import { disableUnitInput } from '../common/domManipulation';
-import { loadState, parseUrlQueryParams } from './storage';
+import { loadState, parseUrlQueryParams, setMetaTags } from './storage';
 import './styles.scss';
 import './font/style.css';
 
@@ -10,6 +10,7 @@ window.onload = function() {
   const inputTime = document.getElementById('time');
   const stateFromUrl = parseUrlQueryParams();
   if (stateFromUrl) {
+    setMetaTags();
     inputTime.setAttribute('value', stateFromUrl.time);
     selectRace.setAttribute('value', stateFromUrl.distance);
     if (stateFromUrl.unit) {
