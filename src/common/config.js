@@ -134,7 +134,7 @@ module.exports = {
   units: [
     {
       id: '1',
-      name: 'Meters',
+      name: 'm',
       aliases: ['m'],
       conversions: [
         {
@@ -149,7 +149,7 @@ module.exports = {
     },
     {
       id: '2',
-      name: 'Km',
+      name: 'km',
       aliases: ['k', 'km'],
       conversions: [
         {
@@ -164,7 +164,7 @@ module.exports = {
     },
     {
       id: '3',
-      name: 'Miles',
+      name: 'mi',
       aliases: ['mi'],
       conversions: [
         {
