@@ -30,11 +30,12 @@ const GenericInput: FunctionalComponent<GenericInputProps> = ({
       />
       {list && (
         <datalist id={list}>
-          {listOptions?.map(optionName => (
-            <option key={optionName} value={optionName}>
-              {optionName}
-            </option>
-          ))}
+          {listOptions &&
+            listOptions.map(optionName => (
+              <option key={optionName} value={optionName}>
+                {optionName}
+              </option>
+            ))}
         </datalist>
       )}
     </div>
