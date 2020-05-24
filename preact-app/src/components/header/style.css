@@ -1,9 +1,7 @@
 .header {
   width: 100%;
-  margin-bottom: calc(var(--base-spacing) * 4);
   left: 0;
   background: black;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
   right: 0;
   top: 0;
   display: flex;
@@ -13,7 +11,7 @@
 }
 
 .nav {
-  padding: 8px 0;
+  padding: calc(var(--base-spacing) * 4) 0;
 }
 
 .nav a {

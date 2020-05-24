@@ -17,24 +17,16 @@ body {
 h1 {
   font-family: "GT America Expanded";
   font-weight: 900;
-  font-size: 14px;
+  font-size: var(--base-font-size);
   text-transform: uppercase;
+  margin: 0;
 }
 
 h2 {
   font-weight: 500;
   font-family: "GT America Expanded";
   font-size: var(--base-font-size);
-}
-
-@media screen and (max-width: var(--medium-screen-size)) {
-  h1 {
-    font-size: 12px;
-  }
-
-  h2 {
-    font-size: 16px;
-  }
+  margin: 0;
 }
 
 .container {
@@ -49,7 +41,23 @@ h2 {
 /* CSS3 variables defined here */
 :root {
   --base-spacing: 4px;
-  --medium-screen-size: 600px;
   --base-font-size: 20px;
+  --small-font-size: 16px;
+  --input-height: 40px;
+  --default-border-radius: 4px;
+
+  /* colors */
   --dark-grey: #424242;
+  --light-grey: #e3e3e3;
+  --black: #22212d;
+  --focus-outline: #005fcc;
+}
+
+/* variables on mobile defined here */
+@media screen and (max-width: 600px) {
+  :root {
+    --input-height: 32px;
+    --base-font-size: 16px;
+    --small-font-size: 12px;
+  }
 }

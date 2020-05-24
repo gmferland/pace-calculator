@@ -1,5 +1,6 @@
 import { FunctionalComponent, h } from "preact";
 import * as style from "./style.css";
+import PaceCalculatorForm from "../../components/paceCalculatorForm";
 import SplitsTable from "../../components/splitsTable";
 
 const splits = [
@@ -16,8 +17,7 @@ const splits = [
 const Home: FunctionalComponent = () => {
   return (
     <div class={style.home}>
-      <h1>Home</h1>
-      <p>This is the Home component.</p>
+      <PaceCalculatorForm />
       <SplitsTable splits={splits} />
     </div>
   );

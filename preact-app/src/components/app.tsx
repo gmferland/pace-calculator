@@ -1,4 +1,4 @@
-import { FunctionalComponent, h } from "preact";
+import { FunctionalComponent, h, Fragment } from "preact";
 import { Route, Router, RouterOnChangeArgs } from "preact-router";
 
 import Home from "../pages/home";
@@ -18,15 +18,15 @@ const App: FunctionalComponent = () => {
   };
 
   return (
-    <div>
+    <Fragment>
       <Header />
-      <div class="container">
+      <main class="container">
         <Router onChange={handleRoute}>
           <Route path="/" component={Home} />
           <NotFoundPage default />
         </Router>
-      </div>
-    </div>
+      </main>
+    </Fragment>
   );
 };
 

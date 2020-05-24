@@ -1,6 +1,5 @@
 .title {
-  padding: 0 0 var(--base-spacing) 0;
-  margin-bottom: 0;
+  padding-bottom: var(--base-spacing);
   border-bottom: 1px solid var(--dark-grey);
 }
 
@@ -16,7 +15,7 @@
   grid-template-columns: 96px 96px;
   grid-column-gap: calc(var(--base-spacing * 4));
   grid-row-gap: calc(var(--base-spacing * 4));
-  border-bottom: 1px solid whitesmoke;
+  border-bottom: 1px solid var(--light-grey);
   padding: 8px 0;
 }
 
@@ -27,4 +26,3 @@
 .distance-label {
   font-weight: bold;
 }
-

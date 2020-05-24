@@ -1,0 +1,32 @@
+.form {
+  padding: calc(var(--base-spacing) * 4) 0;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-column-gap: calc(var(--base-spacing) * 2);
+}
+
+.distance {
+  display: flex;
+  flex-direction: row;
+}
+
+.distance > *:last-child {
+  margin-left: calc(var(--base-spacing) * 2);
+  margin-bottom: calc(var(--base-spacing) * 6);
+  align-self: flex-end;
+}
+
+@media screen and (min-width: 900px) {
+  .input-row {
+    grid-template-columns: minmax(200px, 1fr) minmax(200px, 1fr);
+  }
+}
+
+@media screen and (min-width: 601px) {
+  .input-row {
+    grid-template-columns: 1fr min-content;
+  }
+}
