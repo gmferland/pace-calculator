@@ -1,4 +1,5 @@
 import { FunctionalComponent, h } from "preact";
+import { useFormik } from "formik";
 import * as style from "./style.css";
 import ActionButton from "../actionButton";
 import GenericInput from "../genericInput";
@@ -11,25 +12,52 @@ const unitOptions = [
   { label: "mi", value: "3" }
 ];
 
-const PaceCalculatorForm: FunctionalComponent = () => {
+interface PaceCalculatorFormValues {
+  distance: string;
+  unit: string;
+  time: string;
+}
+
+interface PaceCalculatorFormProps {
+  initialValues: PaceCalculatorFormValues;
+  onSubmit: (values: PaceCalculatorFormValues) => any;
+}
+
+const PaceCalculatorForm: FunctionalComponent<PaceCalculatorFormProps> = ({
+  initialValues,
+  onSubmit
+}) => {
+  const formik = useFormik({
+    initialValues,
+    onSubmit
+  });
   return (
-    <form class={style.form}>
+    <form class={style.form} onSubmit={formik.handleSubmit}>
       <div class={style.inputRow}>
         <div class={style.distance}>
           <GenericInput
             type="text"
             name="distance"
             label="Distance"
+            value={formik.values.distance}
+            onChange={formik.handleChange}
             placeholder="Enter Distance"
             list="distance-options"
             listOptions={raceOptions}
           />
-          <RadioButtonGroup name="unit" options={unitOptions} />
+          <RadioButtonGroup
+            name="unit"
+            value={formik.values.unit}
+            onChange={formik.handleChange}
+            options={unitOptions}
+          />
         </div>
         <GenericInput
           type="text"
           name="time"
           label="Goal Time"
+          value={formik.values.time}
+          onChange={formik.handleChange}
           placeholder="Enter Time"
         />
       </div>

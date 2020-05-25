@@ -14,10 +14,18 @@ const splits = [
   }
 ];
 
+const initialValues = {
+  distance: "1500",
+  unit: "1",
+  time: "4:00"
+};
+
+const onSubmit = (values: any) => console.log(values);
+
 const Home: FunctionalComponent = () => {
   return (
     <div class={style.home}>
-      <PaceCalculatorForm />
+      <PaceCalculatorForm initialValues={initialValues} onSubmit={onSubmit} />
       <SplitsTable splits={splits} />
     </div>
   );
