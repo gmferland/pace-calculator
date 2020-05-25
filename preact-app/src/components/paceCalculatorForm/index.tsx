@@ -4,15 +4,9 @@ import * as style from "./style.css";
 import ActionButton from "../actionButton";
 import GenericInput from "../genericInput";
 import RadioButtonGroup from "../radioButtonGroup";
+import { raceOptions, units } from "../../../common/config";
 
-const raceOptions = ["1500", "5k", "10k"];
-const unitOptions = [
-  { label: "m", value: "1" },
-  { label: "km", value: "2" },
-  { label: "mi", value: "3" }
-];
-
-interface PaceCalculatorFormValues {
+export interface PaceCalculatorFormValues {
   distance: string;
   unit: string;
   time: string;
@@ -43,13 +37,13 @@ const PaceCalculatorForm: FunctionalComponent<PaceCalculatorFormProps> = ({
             onChange={formik.handleChange}
             placeholder="Enter Distance"
             list="distance-options"
-            listOptions={raceOptions}
+            listOptions={raceOptions.map(({ name }) => name)}
           />
           <RadioButtonGroup
             name="unit"
             value={formik.values.unit}
             onChange={formik.handleChange}
-            options={unitOptions}
+            options={units.map(({ name, id }) => ({ label: name, value: id }))}
           />
         </div>
         <GenericInput

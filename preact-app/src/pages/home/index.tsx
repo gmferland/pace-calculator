@@ -1,31 +1,46 @@
 import { FunctionalComponent, h } from "preact";
-import * as style from "./style.css";
-import PaceCalculatorForm from "../../components/paceCalculatorForm";
+import { useState } from "preact/hooks";
+import PaceCalculatorForm, {
+  PaceCalculatorFormValues
+} from "../../components/paceCalculatorForm";
 import SplitsTable from "../../components/splitsTable";
-
-const splits = [
-  {
-    distance: "200m",
-    time: "30 sec"
-  },
-  {
-    distance: "400m",
-    time: "60 sec"
-  }
-];
-
-const initialValues = {
-  distance: "1500",
-  unit: "1",
-  time: "4:00"
-};
-
-const onSubmit = (values: any) => console.log(values);
+import { loadSavedState } from "../../utilities/storage";
+import { getSplits } from "../../../common/calculation";
+import * as style from "./style.css";
 
 const Home: FunctionalComponent = () => {
+  const savedState = loadSavedState();
+  const initialFormValues = savedState || { distance: "", unit: "", time: "" };
+  const initialSplits = savedState
+    ? getSplits(
+        initialFormValues.distance,
+        initialFormValues.unit,
+        initialFormValues.time
+      )
+    : [];
+  const [splits, updateSplits] = useState(initialSplits);
+  const onSubmit = (values: PaceCalculatorFormValues) => {
+    // TODO: form validation
+    try {
+      const calculatedSplits = getSplits(
+        values.distance,
+        values.unit,
+        values.time
+      );
+      updateSplits(calculatedSplits);
+      // TODO: save values
+    } catch (error) {
+      // TODO: show this to user
+      console.log(error.message);
+    }
+  };
+
   return (
     <div class={style.home}>
-      <PaceCalculatorForm initialValues={initialValues} onSubmit={onSubmit} />
+      <PaceCalculatorForm
+        initialValues={initialFormValues}
+        onSubmit={onSubmit}
+      />
       <SplitsTable splits={splits} />
     </div>
   );

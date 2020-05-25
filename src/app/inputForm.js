@@ -3,14 +3,14 @@ import {
   convertToSeconds,
   getFormattedSplits,
   convertToMeters,
-} from '../common/calculation';
-import { raceOptions } from '../common/config';
+} from '../../preact-app/common/calculation';
+import { raceOptions } from '../../preact-app/common/config';
 import {
   disableUnitInput,
   displayResult,
   enableUnitInput,
   setErrorLabel,
-} from '../common/domManipulation';
+} from '../../preact-app/common/domManipulation';
 
 export function initializeInput() {
   const form = document.getElementById('input-form');

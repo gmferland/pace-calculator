@@ -1,29 +1,25 @@
 import { FunctionalComponent, h } from "preact";
+import { FormattedSplit } from "../../../common/calculation";
 import * as style from "./style.css";
 
-interface Split {
-  distance: string;
-  time: string;
-}
-
 interface SplitsTableProps {
-  splits: Array<Split>;
+  splits: Array<FormattedSplit>;
 }
 
 const SplitsTable: FunctionalComponent<SplitsTableProps> = ({ splits }) => {
-  return (
+  return splits && splits.length > 0 ? (
     <section>
       <h2 class={style.title}>Splits</h2>
       <div class={style.splitsTable}>
-        {splits.map(({ distance, time }) => (
-          <div key={distance} class={style.splitRow}>
-            <div class={style.distanceLabel}>{distance}:</div>
-            <div>{time}</div>
+        {splits.map(({ name, duration }) => (
+          <div key={name} class={style.splitRow}>
+            <div class={style.distanceLabel}>{name}:</div>
+            <div>{duration}</div>
           </div>
         ))}
       </div>
     </section>
-  );
+  ) : null;
 };
 
 export default SplitsTable;
