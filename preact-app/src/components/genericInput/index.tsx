@@ -7,6 +7,7 @@ interface GenericInputProps {
   name: string;
   value: string;
   onChange: (event: any) => any;
+  onBlur?: (event: any) => any;
   placeholder?: string;
   list?: string;
   listOptions?: string[];
@@ -18,6 +19,7 @@ const GenericInput: FunctionalComponent<GenericInputProps> = ({
   name,
   value,
   onChange,
+  onBlur,
   placeholder,
   list,
   listOptions
@@ -31,6 +33,7 @@ const GenericInput: FunctionalComponent<GenericInputProps> = ({
         id={name}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
         placeholder={placeholder}
         list={list}
       />

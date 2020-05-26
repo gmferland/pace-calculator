@@ -75,9 +75,6 @@ export const convertToSeconds = (duration: string): number => {
   }
 
   return tokens.reduceRight((seconds, current, index) => {
-    if (/[^0-9.]/.exec(current) !== null) {
-      throw new Error("Time must only contain positive numbers");
-    }
     return seconds + Number(current) * Math.pow(60, tokens.length - 1 - index);
   }, 0);
 };

@@ -23,7 +23,17 @@ interface PaceCalculatorFormProps {
 const validate = (values: PaceCalculatorFormValues) => {
   const errors: Partial<PaceCalculatorFormValues> = {};
   if (!values.distance) {
-    errors.distance = "Please enter a distance";
+    errors.distance = "Please enter a race distance.";
+  }
+
+  if (!values.unit) {
+    errors.unit = "Please select a distance unit.";
+  }
+
+  if (!values.time) {
+    errors.time = "Please enter a race time.";
+  } else if (/[^0-9.:]/.exec(values.time) !== null) {
+    errors.time = "Time must only contain positive numbers.";
   }
 
   return errors;
@@ -38,18 +48,13 @@ const PaceCalculatorForm: FunctionalComponent<PaceCalculatorFormProps> = ({
     initialValues,
     validate,
     onSubmit: (values: PaceCalculatorFormValues) => {
-      try {
-        const calculatedSplits = getSplits(
-          values.distance,
-          values.unit,
-          values.time
-        );
-        updateSplits(calculatedSplits);
-        saveState(values.distance, values.unit, values.time);
-      } catch (error) {
-        // TODO: show this to user
-        console.log(error.message);
-      }
+      const calculatedSplits = getSplits(
+        values.distance,
+        values.unit,
+        values.time
+      );
+      updateSplits(calculatedSplits);
+      saveState(values.distance, values.unit, values.time);
     }
   });
   useEffect(() => {
@@ -59,6 +64,11 @@ const PaceCalculatorForm: FunctionalComponent<PaceCalculatorFormProps> = ({
     );
     setUnitDisabled(!!matchingRace);
   }, [raceOptions, formik.values.distance, setUnitDisabled]);
+
+  const isFormDirty =
+    (formik.touched.distance && !!formik.errors.distance) ||
+    (!isUnitDisabled && formik.touched.unit && !!formik.errors.unit) ||
+    (formik.touched.time && !!formik.errors.time);
 
   return (
     <form class={style.form} onSubmit={formik.handleSubmit}>
@@ -70,14 +80,16 @@ const PaceCalculatorForm: FunctionalComponent<PaceCalculatorFormProps> = ({
             label="Distance"
             value={formik.values.distance}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             placeholder="Enter Distance"
             list="distance-options"
             listOptions={raceOptions.map(({ name }) => name)}
           />
           <RadioButtonGroup
             name="unit"
-            value={formik.values.unit}
+            value={isUnitDisabled ? "" : formik.values.unit}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             options={units.map(({ name, id }) => ({ label: name, value: id }))}
             disabled={isUnitDisabled}
           />
@@ -88,11 +100,25 @@ const PaceCalculatorForm: FunctionalComponent<PaceCalculatorFormProps> = ({
           label="Goal Time"
           value={formik.values.time}
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           placeholder="Enter Time"
         />
       </div>
-      <div>
-        <ActionButton type="submit" text="Calculate" />
+      <div class={style.submitRow}>
+        <ActionButton type="submit" text="Calculate" disabled={isFormDirty} />
+        {isFormDirty && (
+          <p>
+            {(Object.keys(formik.errors) as any).reduce(
+              (acc: string, key: keyof PaceCalculatorFormValues) => {
+                if (formik.errors[key]) {
+                  return `${acc} ${formik.errors[key]}`;
+                }
+                return acc;
+              },
+              ""
+            )}
+          </p>
+        )}
       </div>
     </form>
   );

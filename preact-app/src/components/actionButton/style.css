@@ -14,3 +14,8 @@
   min-width: 160px;
   padding: calc(var(--base-spacing) * 2) calc(var(--base-spacing) * 4);
 }
+
+.button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}

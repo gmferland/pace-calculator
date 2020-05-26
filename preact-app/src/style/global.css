@@ -54,10 +54,10 @@ h2 {
 }
 
 /* variables on mobile defined here */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 500px) {
   :root {
     --input-height: 32px;
     --base-font-size: 16px;
-    --small-font-size: 12px;
+    --small-font-size: 14px;
   }
 }

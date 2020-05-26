@@ -10,6 +10,7 @@ interface RadioButtonGroupProps {
   name: string;
   value: string;
   onChange: (event: any) => any;
+  onBlur?: (event: any) => any;
   options: Array<ButtonOption>;
   disabled: boolean;
 }
@@ -18,6 +19,7 @@ const RadioButtonGroup: FunctionalComponent<RadioButtonGroupProps> = ({
   name,
   value: groupValue,
   onChange,
+  onBlur,
   options,
   disabled
 }) => {
@@ -34,6 +36,7 @@ const RadioButtonGroup: FunctionalComponent<RadioButtonGroupProps> = ({
               value={myValue}
               checked={myValue === groupValue}
               onChange={onChange}
+              onBlur={onBlur}
               disabled={disabled}
             />
             <label htmlFor={id}>{label}</label>

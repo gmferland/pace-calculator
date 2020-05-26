@@ -4,14 +4,16 @@ import * as style from "./style.css";
 interface ActionButtonProps {
   type: string;
   text: string;
+  disabled?: boolean;
 }
 
 const ActionButton: FunctionalComponent<ActionButtonProps> = ({
   type,
-  text
+  text,
+  disabled
 }) => {
   return (
-    <button type={type} class={style.button}>
+    <button type={type} class={style.button} disabled={disabled}>
       {text}
     </button>
   );
