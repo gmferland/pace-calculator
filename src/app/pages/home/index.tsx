@@ -2,7 +2,7 @@ import { FunctionalComponent, h } from "preact";
 import { useState } from "preact/hooks";
 import PaceCalculatorForm from "../../components/paceCalculatorForm";
 import SplitsTable from "../../components/splitsTable";
-import { loadSavedState, saveState } from "../../utilities/storage";
+import { loadSavedState } from "../../utilities/storage";
 import { getSplits } from "../../../common/calculation";
 import * as style from "./style.css";
 
