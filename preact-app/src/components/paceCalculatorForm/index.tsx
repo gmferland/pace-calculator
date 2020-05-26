@@ -1,10 +1,13 @@
 import { FunctionalComponent, h } from "preact";
+import { useState, useEffect } from "preact/hooks";
 import { useFormik } from "formik";
 import * as style from "./style.css";
 import ActionButton from "../actionButton";
 import GenericInput from "../genericInput";
 import RadioButtonGroup from "../radioButtonGroup";
 import { raceOptions, units } from "../../../common/config";
+import { FormattedSplit, getSplits } from "../../../common/calculation";
+import { saveState } from "../../utilities/storage";
 
 export interface PaceCalculatorFormValues {
   distance: string;
@@ -14,17 +17,49 @@ export interface PaceCalculatorFormValues {
 
 interface PaceCalculatorFormProps {
   initialValues: PaceCalculatorFormValues;
-  onSubmit: (values: PaceCalculatorFormValues) => any;
+  updateSplits: (splits: FormattedSplit[]) => any;
 }
+
+const validate = (values: PaceCalculatorFormValues) => {
+  const errors: Partial<PaceCalculatorFormValues> = {};
+  if (!values.distance) {
+    errors.distance = "Please enter a distance";
+  }
+
+  return errors;
+};
 
 const PaceCalculatorForm: FunctionalComponent<PaceCalculatorFormProps> = ({
   initialValues,
-  onSubmit
+  updateSplits
 }) => {
+  const [isUnitDisabled, setUnitDisabled] = useState(true);
   const formik = useFormik({
     initialValues,
-    onSubmit
+    validate,
+    onSubmit: (values: PaceCalculatorFormValues) => {
+      try {
+        const calculatedSplits = getSplits(
+          values.distance,
+          values.unit,
+          values.time
+        );
+        updateSplits(calculatedSplits);
+        saveState(values.distance, values.unit, values.time);
+      } catch (error) {
+        // TODO: show this to user
+        console.log(error.message);
+      }
+    }
   });
+  useEffect(() => {
+    // Unit input is not required if the user selects a known/configured race distance
+    const matchingRace = raceOptions.find(
+      race => race.name === formik.values.distance
+    );
+    setUnitDisabled(!!matchingRace);
+  }, [raceOptions, formik.values.distance, setUnitDisabled]);
+
   return (
     <form class={style.form} onSubmit={formik.handleSubmit}>
       <div class={style.inputRow}>
@@ -44,6 +79,7 @@ const PaceCalculatorForm: FunctionalComponent<PaceCalculatorFormProps> = ({
             value={formik.values.unit}
             onChange={formik.handleChange}
             options={units.map(({ name, id }) => ({ label: name, value: id }))}
+            disabled={isUnitDisabled}
           />
         </div>
         <GenericInput

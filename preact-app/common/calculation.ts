@@ -43,7 +43,7 @@ export const convertToDuration = (time: number): string => {
         // only want the leading zero on seconds if there are minutes as well
         secondsString = secondsString.padStart(2, "0");
       }
-      durationBuilder.push(seconds);
+      durationBuilder.push(secondsString);
       time = 0;
     }
   }
@@ -124,12 +124,25 @@ export const calculateSplits = (distance: number, time: number) => {
  * Calculate splits and return a formatted value for display.
  */
 export function getSplits(
-  distance: string,
-  unitId: string,
-  duration: string
+  inputDistance: number | string,
+  inputUnit: string,
+  inputTime: string
 ): Array<FormattedSplit> {
-  const distanceInMeters = convertToMeters(parseInt(distance), unitId);
-  const durationInSeconds = convertToSeconds(duration);
+  let distance: number;
+  let unit: string;
+  const matchingRace = config.raceOptions.find(
+    race => race.name === inputDistance
+  );
+  if (matchingRace) {
+    ({ distance, unit } = matchingRace);
+  } else {
+    distance =
+      typeof inputDistance === "string" ? Number(inputDistance) : inputDistance;
+    unit = inputUnit;
+  }
+
+  const distanceInMeters = convertToMeters(distance, unit);
+  const durationInSeconds = convertToSeconds(inputTime);
   const splits = calculateSplits(distanceInMeters, durationInSeconds);
   return formatSplits(splits);
 }

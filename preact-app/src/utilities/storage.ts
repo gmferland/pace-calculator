@@ -1,11 +1,8 @@
-import { parseUrlQueryParams } from "./url";
+import { parseUrlQueryParams, setUrlQueryParams } from "./url";
 
 const storageKey = "savedSplits";
 
-/**
- * Save state to local storage.
- */
-export const saveState = (
+const saveToLocalStorage = (
   distance: string,
   unitId: string,
   duration: string
@@ -18,10 +15,7 @@ export const saveState = (
   window.localStorage.setItem(storageKey, storageItem);
 };
 
-/**
- * Load saved state from local storage.
- */
-export const loadState = () => {
+const loadFromLocalStorage = () => {
   // Guard for SSR environment
   if (typeof window === "undefined") {
     return;
@@ -46,10 +40,19 @@ export const loadSavedState = () => {
     return stateFromUrl;
   }
 
-  const savedSplits = loadState();
+  const savedSplits = loadFromLocalStorage();
   if (savedSplits) {
     return savedSplits;
   }
 
   return null;
+};
+
+export const saveState = (
+  distance: string,
+  unitId: string,
+  duration: string
+) => {
+  saveToLocalStorage(distance, unitId, duration);
+  setUrlQueryParams(distance, unitId, duration);
 };

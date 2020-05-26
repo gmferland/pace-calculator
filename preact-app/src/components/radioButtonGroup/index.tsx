@@ -11,13 +11,15 @@ interface RadioButtonGroupProps {
   value: string;
   onChange: (event: any) => any;
   options: Array<ButtonOption>;
+  disabled: boolean;
 }
 
 const RadioButtonGroup: FunctionalComponent<RadioButtonGroupProps> = ({
   name,
   value: groupValue,
   onChange,
-  options
+  options,
+  disabled
 }) => {
   return (
     <div class={style.groupContainer}>
@@ -32,6 +34,7 @@ const RadioButtonGroup: FunctionalComponent<RadioButtonGroupProps> = ({
               value={myValue}
               checked={myValue === groupValue}
               onChange={onChange}
+              disabled={disabled}
             />
             <label htmlFor={id}>{label}</label>
           </div>
