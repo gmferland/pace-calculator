@@ -1,13 +1,14 @@
-import { FunctionalComponent, h } from "preact";
-import { useState, useEffect } from "preact/hooks";
-import { useFormik } from "formik";
-import * as style from "./style.css";
-import ActionButton from "../actionButton";
-import GenericInput from "../genericInput";
-import RadioButtonGroup from "../radioButtonGroup";
-import { raceOptions, units } from "../../../common/config";
-import { FormattedSplit, getSplits } from "../../../common/calculation";
-import { saveState } from "../../utilities/storage";
+import { FunctionalComponent, h } from 'preact';
+import { useState, useEffect } from 'preact/hooks';
+import { useFormik, Field } from 'formik';
+import * as style from './style.css';
+import ActionButton from '../actionButton';
+import GenericInput from '../genericInput';
+import RadioButtonGroup from '../radioButtonGroup';
+import { raceOptions, units } from '../../../common/config';
+import { FormattedSplit, getSplits } from '../../../common/calculation';
+import { saveState } from '../../utilities/storage';
+import { setMetaTags } from '../../utilities/url';
 
 export interface PaceCalculatorFormValues {
   distance: string;
@@ -20,42 +21,39 @@ interface PaceCalculatorFormProps {
   updateSplits: (splits: FormattedSplit[]) => any;
 }
 
-const validate = (values: PaceCalculatorFormValues) => {
-  const errors: Partial<PaceCalculatorFormValues> = {};
-  if (!values.distance) {
-    errors.distance = "Please enter a race distance.";
-  }
-
-  if (!values.unit) {
-    errors.unit = "Please select a distance unit.";
-  }
-
-  if (!values.time) {
-    errors.time = "Please enter a race time.";
-  } else if (/[^0-9.:]/.exec(values.time) !== null) {
-    errors.time = "Time must only contain positive numbers.";
-  }
-
-  return errors;
-};
-
 const PaceCalculatorForm: FunctionalComponent<PaceCalculatorFormProps> = ({
   initialValues,
-  updateSplits
+  updateSplits,
 }) => {
   const [isUnitDisabled, setUnitDisabled] = useState(true);
   const formik = useFormik({
     initialValues,
-    validate,
+    validate: (values: PaceCalculatorFormValues) => {
+      const errors: Partial<PaceCalculatorFormValues> = {};
+      if (!values.distance) {
+        errors.distance = 'Please enter a race distance.';
+      }
+
+      if (!isUnitDisabled && !values.unit) {
+        errors.unit = 'Please select a distance unit.';
+      }
+
+      if (!values.time) {
+        errors.time = 'Please enter a race time.';
+      } else if (/[^0-9.:]/.exec(values.time) !== null) {
+        errors.time = 'Time must only contain positive numbers.';
+      }
+
+      return errors;
+    },
     onSubmit: (values: PaceCalculatorFormValues) => {
-      const calculatedSplits = getSplits(
-        values.distance,
-        values.unit,
-        values.time
-      );
+      // TODO: see if there's a better way to handle disabled value in Formik
+      const unit = isUnitDisabled ? '' : values.unit;
+      const calculatedSplits = getSplits(values.distance, unit, values.time);
       updateSplits(calculatedSplits);
-      saveState(values.distance, values.unit, values.time);
-    }
+      saveState(values.distance, unit, values.time);
+      setMetaTags();
+    },
   });
   useEffect(() => {
     // Unit input is not required if the user selects a known/configured race distance
@@ -87,7 +85,7 @@ const PaceCalculatorForm: FunctionalComponent<PaceCalculatorFormProps> = ({
           />
           <RadioButtonGroup
             name="unit"
-            value={isUnitDisabled ? "" : formik.values.unit}
+            value={isUnitDisabled ? '' : formik.values.unit}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             options={units.map(({ name, id }) => ({ label: name, value: id }))}
@@ -115,7 +113,7 @@ const PaceCalculatorForm: FunctionalComponent<PaceCalculatorFormProps> = ({
                 }
                 return acc;
               },
-              ""
+              ''
             )}
           </p>
         )}
