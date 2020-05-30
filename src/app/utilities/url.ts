@@ -1,3 +1,5 @@
+import { units } from '../../common/config';
+
 export const setUrlQueryParams = (
   distance: string,
   unitId: string,
@@ -54,8 +56,18 @@ export const setMetaTags = () => {
     return;
   }
 
-  const distanceURI = params.unit
-    ? encodeURI(`${params.distance} ${params.unit}`)
+  let unitName: string = '';
+  if (params.unit) {
+    // Match id to config
+    const matchingUnit = units.find(unit => unit.id === params.unit);
+    // Grab name if it exists (which it should...)
+    if (matchingUnit) {
+      unitName = matchingUnit.name;
+    }
+  }
+
+  const distanceURI = unitName
+    ? encodeURI(`${params.distance} ${unitName}`)
     : encodeURI(params.distance);
   const timeURI = encodeURI(params.time);
   const calcString = `${distanceURI}-${timeURI}`;
