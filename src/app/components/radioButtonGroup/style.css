@@ -54,6 +54,7 @@
   cursor: pointer;
   padding: 0 12px;
   height: 100%;
+  width: var(--input-height);
 }
 
 .input-container label:hover {

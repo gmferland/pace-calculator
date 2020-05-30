@@ -3,3 +3,4 @@ export const form: string;
 export const inputRow: string;
 export const submitRow: string;
 export const distance: string;
+export const spacer: string;

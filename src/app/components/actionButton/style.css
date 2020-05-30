@@ -12,6 +12,7 @@
   color: white;
   background-color: var(--black);
   min-width: 160px;
+  max-width: 300px;
   padding: calc(var(--base-spacing) * 2) calc(var(--base-spacing) * 4);
 }
 

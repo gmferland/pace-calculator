@@ -27,6 +27,7 @@ const PaceCalculatorForm: FunctionalComponent<FormikProps<
   status,
   setFieldValue,
   setStatus,
+  touched,
   values,
 }) => {
   useEffect(() => {
@@ -55,17 +56,19 @@ const PaceCalculatorForm: FunctionalComponent<FormikProps<
             list="distance-options"
             listOptions={raceOptions.map(({ name }) => name)}
           />
-          <RadioButtonGroup
-            name="unit"
-            value={values.unit}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            options={units.map(({ name, id }) => ({
-              label: name,
-              value: id,
-            }))}
-            disabled={status.isUnitDisabled}
-          />
+          <div>
+            <RadioButtonGroup
+              name="unit"
+              value={values.unit}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              options={units.map(({ name, id }) => ({
+                label: name,
+                value: id,
+              }))}
+              disabled={status.isUnitDisabled}
+            />
+          </div>
         </div>
         <GenericInput
           type="text"
@@ -78,12 +81,12 @@ const PaceCalculatorForm: FunctionalComponent<FormikProps<
         />
       </div>
       <div class={style.submitRow}>
-        <ActionButton type="submit" text="Calculate" disabled={!isValid} />
+        <ActionButton type="submit" text="Calculate" />
         {!isValid && (
           <p>
             {(Object.keys(errors) as any).reduce(
               (acc: string, key: keyof PaceCalculatorFormValues) => {
-                if (errors[key]) {
+                if (errors[key] && touched[key]) {
                   return `${acc} ${errors[key]}`;
                 }
                 return acc;
@@ -109,7 +112,7 @@ export default withFormik({
   mapPropsToStatus: () => ({
     isUnitDisabled: false,
   }),
-  validate: (values) => {
+  validate: values => {
     const errors: Partial<PaceCalculatorFormValues> = {};
     if (!values.distance) {
       errors.distance = 'Please enter a race distance.';
