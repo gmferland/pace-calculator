@@ -1,5 +1,6 @@
 import { FunctionalComponent, h } from "preact";
 import * as style from "./style.css";
+import { useField } from "formik";
 
 interface ButtonOption {
   label: string;
@@ -8,36 +9,39 @@ interface ButtonOption {
 
 interface RadioButtonGroupProps {
   name: string;
-  value: string;
-  onChange: (event: any) => any;
-  onBlur?: (event: any) => any;
   options: Array<ButtonOption>;
   disabled: boolean;
 }
 
 const RadioButtonGroup: FunctionalComponent<RadioButtonGroupProps> = ({
   name,
-  value: groupValue,
-  onChange,
-  onBlur,
   options,
   disabled
 }) => {
+  const validate = (value: string) => {
+    let error: string | undefined;
+    if (!disabled && !value) {
+      error = 'Please select a distance unit.';
+    }
+    return error;
+  }
+  const [field, meta, helpers] = useField({ name, validate });
   return (
     <div class={style.groupContainer}>
-      {options.map(({ label, value: myValue }) => {
-        const id = `${name}-${myValue}`;
+      {options.map(({ label, value }) => {
+        const id = `${name}-${value}`;
         return (
           <div key={id} class={style.inputContainer}>
             <input
               type="radio"
               name={name}
               id={id}
-              value={myValue}
-              checked={myValue === groupValue}
-              onChange={onChange}
-              onBlur={onBlur}
+              value={value}
+              checked={value === field.value}
+              onChange={() => helpers.setValue(value)}
+              onBlur={() => helpers.setTouched(true)}
               disabled={disabled}
+              
             />
             <label htmlFor={id}>{label}</label>
           </div>

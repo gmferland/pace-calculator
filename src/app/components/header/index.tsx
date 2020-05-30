@@ -8,7 +8,7 @@ const Header: FunctionalComponent = () => {
       <div class="container">
         <nav class={style.nav}>
           <Link activeClassName={style.active} href="/">
-            <h1>Pace Calculator</h1>
+            <h1 class={style.title}>Pace Calculator</h1>
           </Link>
         </nav>
       </div>

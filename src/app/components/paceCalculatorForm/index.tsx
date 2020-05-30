@@ -3,7 +3,7 @@ import { useEffect } from 'preact/hooks';
 import { FormikProps, withFormik } from 'formik';
 import * as style from './style.css';
 import ActionButton from '../actionButton';
-import GenericInput from '../genericInput';
+import TextInput from '../textInput';
 import RadioButtonGroup from '../radioButtonGroup';
 import { raceOptions, units } from '../../../common/config';
 import { FormattedSplit, getSplits } from '../../../common/calculation';
@@ -45,23 +45,22 @@ const PaceCalculatorForm: FunctionalComponent<FormikProps<
     <form class={style.form} onSubmit={handleSubmit}>
       <div class={style.inputRow}>
         <div class={style.distance}>
-          <GenericInput
-            type="text"
+          <TextInput
             name="distance"
             label="Distance"
-            value={values.distance}
-            onChange={handleChange}
-            onBlur={handleBlur}
             placeholder="Enter Distance"
             list="distance-options"
             listOptions={raceOptions.map(({ name }) => name)}
+            autoFocus={true}
+            onFocus={(e) => {
+              if (values.distance) {
+                e.currentTarget.select();
+              }
+            }}
           />
           <div>
             <RadioButtonGroup
               name="unit"
-              value={values.unit}
-              onChange={handleChange}
-              onBlur={handleBlur}
               options={units.map(({ name, id }) => ({
                 label: name,
                 value: id,
@@ -70,13 +69,9 @@ const PaceCalculatorForm: FunctionalComponent<FormikProps<
             />
           </div>
         </div>
-        <GenericInput
-          type="text"
+        <TextInput
           name="time"
           label="Goal Time"
-          value={values.time}
-          onChange={handleChange}
-          onBlur={handleBlur}
           placeholder="Enter Time"
         />
       </div>
@@ -117,11 +112,6 @@ export default withFormik({
     if (!values.distance) {
       errors.distance = 'Please enter a race distance.';
     }
-
-    // TODO: unit validation
-    /* if (!props.isUnitDisabled && !values.unit) {
-      errors.unit = 'Please select a distance unit.';
-    } */
 
     if (!values.time) {
       errors.time = 'Please enter a race time.';

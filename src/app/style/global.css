@@ -18,7 +18,6 @@ h1 {
   font-family: "GT America Expanded";
   font-weight: 900;
   font-size: var(--base-font-size);
-  text-transform: uppercase;
   margin: 0;
 }
 
@@ -56,8 +55,8 @@ h2 {
 /* variables on mobile defined here */
 @media screen and (max-width: 500px) {
   :root {
-    --input-height: 32px;
-    --base-font-size: 16px;
-    --small-font-size: 14px;
+    --input-height: 36px;
+    --base-font-size: 18px;
+    --small-font-size: 16px;
   }
 }

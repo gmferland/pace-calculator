@@ -1,41 +1,39 @@
 import { FunctionalComponent, h } from "preact";
 import * as style from "./style.css";
+import { useField, FieldValidator } from "formik";
 
-interface GenericInputProps {
-  type: string;
-  label: string;
+interface TextInputProps {
   name: string;
-  value: string;
-  onChange: (event: any) => any;
-  onBlur?: (event: any) => any;
+  label: string;
+  validate?: FieldValidator;
   placeholder?: string;
   list?: string;
   listOptions?: string[];
+  autoFocus?: boolean;
+  onFocus?: (e: any) => void;
 }
 
-const GenericInput: FunctionalComponent<GenericInputProps> = ({
-  type,
+const GenericInput: FunctionalComponent<TextInputProps> = ({
+  autoFocus,
   label,
-  name,
-  value,
-  onChange,
-  onBlur,
-  placeholder,
   list,
-  listOptions
+  listOptions,
+  onFocus,
+  placeholder,
+  ...fieldProps
 }) => {
+  const [field, meta, helpers] = useField<string>(fieldProps);
   return (
     <div class={style.inputContainer}>
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={field.name}>{label}</label>
       <input
-        type={type}
-        name={name}
-        id={name}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
+        type="text"
+        id={field.name}
         placeholder={placeholder}
         list={list}
+        {...field}
+        autoFocus={autoFocus}
+        onFocus={onFocus}
       />
       {list && (
         <datalist id={list}>
