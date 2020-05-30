@@ -1,0 +1,293 @@
+@import 'styles/utils.scss';
+@import 'styles/variables.scss';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  font-family: 'GT America', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol';
+  margin: 0;
+  padding: 0;
+}
+
+.nav {
+  padding: 8px 0;
+  background: black;
+  margin-bottom: ($base-spacing * 4);
+  color: white;
+}
+
+.header {
+  width: 100%;
+  padding-bottom: ($base-spacing * 2);
+  left: 0;
+  background: white;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  right: 0;
+  top: 0;
+}
+
+.main {
+  width: 100%;
+  padding: ($base-spacing * 4) ($base-spacing * 6);
+  align-items: stretch;
+}
+
+h1 {
+  font-family: 'GT America Expanded';
+  font-weight: 900;
+  font-size: 14px;
+  text-transform: uppercase;
+
+  @media screen and (max-width: $mid-size) {
+    font-size: 12px;
+  }
+}
+
+h2 {
+  font-weight: 500;
+  font-family: 'GT America Expanded';
+  font-size: $base-font-size;
+
+  @media screen and (max-width: $mid-size) {
+    font-size: 16px;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-column-gap: $base-spacing * 2;
+  width: 100%;
+
+  @media screen and (min-width: 900px) {
+    grid-template-columns: minmax(200px, 1fr) minmax(200px, 1fr);
+    grid-column-gap: $base-spacing * 4;
+    grid-column-gap: $base-spacing * 2;
+    width: 100%;
+  }
+
+  @media screen and (min-width: $mid-size + 1) {
+    grid-template-columns: 1fr min-content;
+    grid-column-gap: $base-spacing * 4;
+    grid-column-gap: $base-spacing * 2;
+    width: 100%;
+  }
+}
+
+#input-form {
+  width: 100%;
+  text-align: left;
+
+  label {
+    font-weight: 500;
+    font-family: 'GT America Expanded';
+    font-size: 13px;
+
+    @media screen and (max-width: $mid-size) {
+      font-size: 11px;
+    }
+  }
+
+  .input-container {
+    margin-bottom: $base-spacing * 6;
+    text-align: left;
+    width: 100%;
+
+    @media screen and (max-width: $mid-size) {
+      margin-bottom: $base-spacing * 2;
+    }
+
+    input {
+      margin-top: 8px;
+      padding: 0 8px;
+      border-radius: $default-border-radius;
+      border: 1px solid $black;
+      height: $input-height;
+      font-family: 'GT America Mono';
+      font-size: $base-font-size - 4px;
+      background: none;
+      font-family: 'GT America Mono';
+
+      @media screen and (max-width: $mid-size) {
+        font-size: 16px;
+        height: $mid-input-height;
+        padding: 0 ($base-spacing * 1);
+      }
+    }
+  }
+
+  .input-unit {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: $base-spacing * 6;
+    align-self: flex-end;
+    justify-content: flex-start;
+
+    @media screen and (max-width: $mid-size) {
+      margin-bottom: $base-spacing * 2;
+    }
+
+    label {
+      font-size: $base-font-size - 6px;
+    }
+
+    .input-container {
+      display: flex;
+      height: $input-height;
+      justify-content: flex-start;
+      position: relative;
+      margin: 0 4px;
+      flex: 0;
+
+      @media screen and (max-width: $mid-size) {
+        height: $mid-input-height;
+      }
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      label {
+        display: flex;
+        font-family: 'GT America';
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+        border-radius: $default-border-radius;
+        border: 1px solid $black;
+        cursor: pointer;
+        padding: 0 12px;
+        height: 100%;
+
+        @media screen and (max-width: $mid-size) {
+          padding: 0 ($base-spacing * 2);
+        }
+
+        &:hover {
+          background-color: $light-grey;
+        }
+      }
+
+      input[type='radio'] {
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+        border: none;
+        position: absolute;
+        height: 0;
+        width: 0;
+        top: 0;
+        left: 0;
+        z-index: -10;
+
+        &:checked + label {
+          background-color: $black;
+          color: white;
+        }
+
+        &[disabled] + label {
+          opacity: 0.3;
+          pointer-events: none;
+        }
+
+        &:focus + label {
+          outline: rgba(0, 103, 244, 0.247) auto 5px;
+        }
+      }
+    }
+  }
+
+  .submit-button {
+    height: $input-height;
+    font-family: 'GT America';
+    font-size: $base-font-size;
+    border: 1px solid $black;
+    border-radius: $default-border-radius;
+    cursor: pointer;
+    color: white;
+    align-self: flex-end;
+    margin-bottom: $base-spacing * 4;
+    background: $black;
+    min-width: 160px;
+
+    @media screen and (max-width: $mid-size) {
+      font-size: 16px;
+      height: $mid-input-height;
+      margin-bottom: $base-spacing * 2;
+    }
+  }
+}
+
+.distance {
+  display: flex;
+  width: 100%;
+
+  @media screen and (max-width: $mid-size) {
+    flex-wrap: wrap;
+  }
+
+  .input-container {
+    @media screen and (max-width: $mid-size) {
+      width: 160px;
+    }
+  }
+
+  .input-container:first-of-type {
+    margin-right: 8px;
+    flex: 2;
+  }
+}
+
+#results {
+  text-align: left;
+  align-items: stretch;
+
+  h2#splits-table-title {
+    padding: 0 0 $base-spacing 0;
+    margin-bottom: 0;
+    border-bottom: 1px solid $dark-grey;
+  }
+}
+
+#splits-table {
+  font-size: $base-font-size;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-column-gap: $base-spacing * 4;
+
+  .pace-row {
+    display: grid;
+    grid-template-columns: 96px 96px;
+    grid-column-gap: $base-spacing * 4;
+    grid-row-gap: $base-spacing * 4;
+    border-bottom: 1px solid whitesmoke;
+    padding: 8px 0;
+  }
+}
+
+#error-label {
+  color: red;
+  margin-top: $base-spacing * 2;
+}
+
+.pace-row {
+  display: flex;
+  padding-top: $base-spacing * 2;
+}
+
+.time-label {
+  padding-left: $base-spacing;
+}
