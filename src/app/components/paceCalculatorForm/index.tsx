@@ -20,8 +20,6 @@ const PaceCalculatorForm: FunctionalComponent<FormikProps<
   PaceCalculatorFormValues
 >> = ({
   errors,
-  handleBlur,
-  handleChange,
   handleSubmit,
   isValid,
   status,
@@ -39,7 +37,7 @@ const PaceCalculatorForm: FunctionalComponent<FormikProps<
     if (matchingRace) {
       setFieldValue('unit', '');
     }
-  }, [raceOptions, values.distance, setStatus]);
+  }, [values.distance, setStatus, setFieldValue]);
 
   return (
     <form class={style.form} onSubmit={handleSubmit}>
@@ -51,12 +49,6 @@ const PaceCalculatorForm: FunctionalComponent<FormikProps<
             placeholder="Enter Distance"
             list="distance-options"
             listOptions={raceOptions.map(({ name }) => name)}
-            autoFocus={true}
-            onFocus={(e) => {
-              if (values.distance) {
-                e.currentTarget.select();
-              }
-            }}
           />
           <div>
             <RadioButtonGroup
@@ -69,11 +61,7 @@ const PaceCalculatorForm: FunctionalComponent<FormikProps<
             />
           </div>
         </div>
-        <TextInput
-          name="time"
-          label="Goal Time"
-          placeholder="Enter Time"
-        />
+        <TextInput name="time" label="Goal Time" placeholder="Enter Time" />
       </div>
       <div class={style.submitRow}>
         <ActionButton type="submit" text="Calculate" />
