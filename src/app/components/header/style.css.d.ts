@@ -3,3 +3,4 @@ export const header: string;
 export const title: string;
 export const nav: string;
 export const active: string;
+export const links: string;

@@ -1,23 +1,24 @@
-import { parseUrlQueryParams, setUrlQueryParams } from "./url";
+import { parseUrlQueryParams, setUrlQueryParams } from './url';
+import { Unit } from 'common/config';
 
-const storageKey = "savedSplits";
+const storageKey = 'savedSplits';
 
 const saveToLocalStorage = (
-  distance: string,
-  unitId: string,
+  distance: string | number,
+  unit: Unit,
   duration: string
 ) => {
   // Guard for SSR environment
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     return;
   }
-  const storageItem = JSON.stringify({ distance, unitId, duration });
+  const storageItem = JSON.stringify({ distance, unit, duration });
   window.localStorage.setItem(storageKey, storageItem);
 };
 
 const loadFromLocalStorage = () => {
   // Guard for SSR environment
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     return;
   }
 
@@ -26,8 +27,8 @@ const loadFromLocalStorage = () => {
     const savedState = JSON.parse(storedItem);
     return {
       distance: savedState.distance,
-      unit: savedState.unitId,
-      time: savedState.duration
+      unit: savedState.unit,
+      time: savedState.duration,
     };
   }
 
@@ -49,10 +50,10 @@ export const loadSavedState = () => {
 };
 
 export const saveState = (
-  distance: string,
-  unitId: string,
+  distance: string | number,
+  unitId: Unit,
   duration: string
 ) => {
   saveToLocalStorage(distance, unitId, duration);
-  setUrlQueryParams(distance, unitId, duration);
+  setUrlQueryParams(String(distance), String(unitId), duration);
 };

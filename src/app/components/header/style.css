@@ -1,5 +1,6 @@
 .header {
   width: 100%;
+  height: var(--header-height);
   left: 0;
   background: black;
   right: 0;
@@ -7,7 +8,7 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
+  align-items: normal;
 }
 
 .header .title {
@@ -15,14 +16,23 @@
 }
 
 .nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: normal;
+  align-items: center;
   padding: calc(var(--base-spacing) * 4) 0;
 }
 
 .nav a {
   color: white;
   text-decoration: none;
+  height: var(--base-line-height);
 }
 
-a.active {
-  border-bottom: 4px solid white;
+.nav a.active, .nav a:hover {
+  border-bottom: 2px solid white;
+}
+
+.links {
+  margin-left: calc(var(--base-spacing) * 8);
 }

@@ -1,3 +1,10 @@
+export enum Unit {
+  Unknown = 0,
+  Meters = 1,
+  Kilometers = 2,
+  Miles = 3,
+}
+
 export const routes = [
   {
     title: 'Pace Calculator | Race Pace Space',
@@ -13,57 +20,57 @@ export const raceOptions = [
   {
     name: '1500',
     distance: 1500,
-    unit: '1',
+    unit: Unit.Meters,
   },
   {
     name: 'Mile',
     distance: 1,
-    unit: '3',
+    unit: Unit.Miles,
   },
   {
     name: '3k',
     distance: 3000,
-    unit: '1',
+    unit: Unit.Meters,
   },
   {
     name: '2 Mile',
     distance: 2,
-    unit: '3',
+    unit: Unit.Miles,
   },
   {
     name: '5k',
     distance: 5000,
-    unit: '1',
+    unit: Unit.Meters,
   },
   {
     name: '8k',
     distance: 8000,
-    unit: '1',
+    unit: Unit.Meters,
   },
   {
     name: '10k',
     distance: 10000,
-    unit: '1',
+    unit: Unit.Meters,
   },
   {
     name: '15k',
     distance: 15000,
-    unit: '1',
+    unit: Unit.Meters,
   },
   {
     name: '20k',
     distance: 20000,
-    unit: '1',
+    unit: Unit.Meters,
   },
   {
     name: 'Half Marathon',
     distance: 21097.5,
-    unit: '1',
+    unit: Unit.Meters,
   },
   {
     name: 'Marathon',
     distance: 42195,
-    unit: '1',
+    unit: Unit.Meters,
   },
 ];
 
@@ -130,46 +137,46 @@ export const splits = [
 
 export const units = [
   {
-    id: '1',
+    id: Unit.Meters,
     name: 'm',
-    aliases: ['m'],
+    aliases: ['m', 'meter', 'metre'],
     conversions: [
       {
-        to: '2',
+        to: Unit.Kilometers,
         value: 0.001,
       },
       {
-        to: '3',
+        to: Unit.Miles,
         value: 0.0006213712,
       },
     ],
   },
   {
-    id: '2',
+    id: Unit.Kilometers,
     name: 'km',
-    aliases: ['k', 'km'],
+    aliases: ['k', 'km', 'kilometer', 'kilometre'],
     conversions: [
       {
-        to: '1',
+        to: Unit.Meters,
         value: 1000,
       },
       {
-        to: '3',
+        to: Unit.Miles,
         value: 0.6213712,
       },
     ],
   },
   {
-    id: '3',
+    id: Unit.Miles,
     name: 'mi',
-    aliases: ['mi'],
+    aliases: ['mi', 'mile'],
     conversions: [
       {
-        to: '1',
+        to: Unit.Meters,
         value: 1609.344,
       },
       {
-        to: '2',
+        to: Unit.Kilometers,
         value: 1.609344,
       },
     ],

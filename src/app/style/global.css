@@ -18,6 +18,7 @@ h1 {
   font-family: "GT America Expanded";
   font-weight: 900;
   font-size: var(--base-font-size);
+  line-height: var(--base-line-height);
   margin: 0;
 }
 
@@ -25,6 +26,7 @@ h2 {
   font-weight: 500;
   font-family: "GT America Expanded";
   font-size: var(--base-font-size);
+  line-height: var(--base-line-height);
   margin: 0;
 }
 
@@ -41,9 +43,13 @@ h2 {
 :root {
   --base-spacing: 4px;
   --base-font-size: 20px;
+  --base-line-height: 24px;
   --small-font-size: 16px;
   --input-height: 40px;
+  --input-min-width: 160px;
+  --input-max-width: 300px;
   --default-border-radius: 4px;
+  --header-height: 56px;
 
   /* colors */
   --dark-grey: #424242;
@@ -57,6 +63,8 @@ h2 {
   :root {
     --input-height: 36px;
     --base-font-size: 18px;
+    --base-line-height: 22px;
     --small-font-size: 16px;
+    --header-height: 54px;
   }
 }

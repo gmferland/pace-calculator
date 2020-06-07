@@ -43,7 +43,7 @@ export const parseUrlQueryParams = () => {
   if (distance && time) {
     return {
       distance,
-      unit,
+      unit: Number(unit),
       time,
     };
   }
@@ -59,7 +59,7 @@ export const setImageMetaTags = () => {
   let unitName = '';
   if (params.unit) {
     // Match id to config
-    const matchingUnit = units.find(unit => unit.id === params.unit);
+    const matchingUnit = units.find(unit => unit.id === Number(params.unit));
     // Grab name if it exists (which it should...)
     if (matchingUnit) {
       unitName = matchingUnit.name;
