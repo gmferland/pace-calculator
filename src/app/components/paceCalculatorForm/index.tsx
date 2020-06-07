@@ -3,7 +3,8 @@ import { useEffect } from 'preact/hooks';
 import { FormikProps, withFormik } from 'formik';
 import * as style from './style.css';
 import ActionButton from '../actionButton';
-import TextInput from '../textInput';
+import TextInput from '../inputs/TextInput';
+import TimeInput from '../inputs/TimeInput';
 import RadioButtonGroup from '../radioButtonGroup';
 import { raceOptions, units } from '../../../common/config';
 import { FormattedSplit, getSplits } from '../../../common/calculation';
@@ -61,7 +62,7 @@ const PaceCalculatorForm: FunctionalComponent<FormikProps<
             />
           </div>
         </div>
-        <TextInput name="time" label="Goal Time" placeholder="Enter Time" />
+        <TimeInput name="time" label="Goal Time" placeholder="Enter Time" />
       </div>
       <div class={style.submitRow}>
         <ActionButton type="submit" text="Calculate" />
@@ -103,6 +104,8 @@ export default withFormik({
 
     if (!values.time) {
       errors.time = 'Please enter a race time.';
+    } else if (values.time.length > 8) {
+      errors.time = 'Please enter a time less than 99 hours.';
     } else if (/[^0-9.:]/.exec(values.time) !== null) {
       errors.time = 'Time must only contain positive numbers.';
     }

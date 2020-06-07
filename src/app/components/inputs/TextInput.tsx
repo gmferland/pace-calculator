@@ -1,6 +1,6 @@
-import { FunctionalComponent, h } from "preact";
-import * as style from "./style.css";
-import { useField, FieldValidator } from "formik";
+import { FunctionalComponent, h } from 'preact';
+import * as style from './style.css';
+import { useField, FieldValidator } from 'formik';
 
 interface TextInputProps {
   name: string;
@@ -13,7 +13,7 @@ interface TextInputProps {
   onFocus?: (e: any) => void;
 }
 
-const GenericInput: FunctionalComponent<TextInputProps> = ({
+const TextInput: FunctionalComponent<TextInputProps> = ({
   autoFocus,
   label,
   list,
@@ -22,7 +22,7 @@ const GenericInput: FunctionalComponent<TextInputProps> = ({
   placeholder,
   ...fieldProps
 }) => {
-  const [field, meta, helpers] = useField<string>(fieldProps);
+  const [field] = useField<string>(fieldProps);
   return (
     <div class={style.inputContainer}>
       <label htmlFor={field.name}>{label}</label>
@@ -49,4 +49,4 @@ const GenericInput: FunctionalComponent<TextInputProps> = ({
   );
 };
 
-export default GenericInput;
+export default TextInput;
