@@ -3,7 +3,7 @@ import { useState, useEffect } from 'preact/hooks';
 import PaceCalculatorForm from '../../components/paceCalculatorForm';
 import SplitsTable from '../../components/splitsTable';
 import { loadSavedState } from '../../utilities/storage';
-import { setMetaTags } from '../../utilities/url';
+import { setImageMetaTags } from '../../utilities/url';
 import { getSplits } from '../../../common/calculation';
 import * as style from './style.css';
 
@@ -17,7 +17,7 @@ const Home: FunctionalComponent = () => {
 
   useEffect(() => {
     // Set meta tags to reflect any stored state on page load
-    setMetaTags();
+    setImageMetaTags();
   });
 
   return (

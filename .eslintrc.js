@@ -1,49 +1,43 @@
 module.exports = {
   env: {
-    browser: true
+    browser: true,
   },
-  plugins: ["@typescript-eslint"],
+  plugins: ['@typescript-eslint'],
   extends: [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:prettier/recommended",
-    "prettier/@typescript-eslint",
-    "prettier/react"
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:prettier/recommended',
+    'prettier/@typescript-eslint',
+    'prettier/react',
   ],
-  parser: "@typescript-eslint/parser",
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
-      jsx: true
+      jsx: true,
     },
-    project: "./tsconfig.eslint.json"
+    project: './tsconfig.eslint.json',
   },
   rules: {
-    "react/no-unknown-property": ["error", { ignore: ["class"] }]
+    'react/no-unknown-property': ['error', { ignore: ['class'] }],
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
   },
   settings: {
     react: {
-      pragma: "h",
-      version: "detect"
-    }
+      pragma: 'h',
+      version: 'detect',
+    },
   },
   overrides: [
     {
-      files: ["*.js"],
+      files: ['*.tsx'],
       rules: {
-        "@typescript-eslint/explicit-function-return-type": "off"
-      }
+        'react/prop-types': 'off',
+      },
     },
-    {
-      files: ["*.tsx"],
-      rules: {
-        "react/prop-types": "off",
-        "@typescript-eslint/explicit-function-return-type": "off",
-        "@typescript-eslint/no-explicit-any": "off"
-      }
-    }
-  ]
+  ],
 };

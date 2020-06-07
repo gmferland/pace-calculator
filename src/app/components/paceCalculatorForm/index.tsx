@@ -9,7 +9,7 @@ import RadioButtonGroup from '../radioButtonGroup';
 import { raceOptions, units } from '../../../common/config';
 import { FormattedSplit, getSplits } from '../../../common/calculation';
 import { saveState } from '../../utilities/storage';
-import { setMetaTags } from '../../utilities/url';
+import { setImageMetaTags } from '../../utilities/url';
 
 export interface PaceCalculatorFormValues {
   distance: string;
@@ -120,6 +120,6 @@ export default withFormik({
     );
     formik.props.updateSplits(calculatedSplits);
     saveState(values.distance, values.unit, values.time);
-    setMetaTags();
+    setImageMetaTags();
   },
 })(PaceCalculatorForm);
