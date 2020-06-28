@@ -39,6 +39,14 @@ h2 {
   margin-right: auto;
 }
 
+.mobile-only {
+  display: none;
+}
+
+.mobile-hidden {
+  display: initial;
+}
+
 /* CSS3 variables defined here */
 :root {
   --base-spacing: 4px;
@@ -66,5 +74,13 @@ h2 {
     --base-line-height: 22px;
     --small-font-size: 16px;
     --header-height: 54px;
+  }
+
+  .mobile-only {
+    display: initial;
+  }
+
+  .mobile-hidden {
+    display: none !important;
   }
 }
