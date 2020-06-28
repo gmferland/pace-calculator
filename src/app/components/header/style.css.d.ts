@@ -5,5 +5,8 @@ export const title: string;
 export const nav: string;
 export const active: string;
 export const links: string;
+export const offScreenContainer: string;
+export const open: string;
+export const overlay: string;
 export const hamburgerMenuButton: string;
 export const menuLine: string;

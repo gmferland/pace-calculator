@@ -6,15 +6,29 @@ import { loadSavedState } from '../utilities/storage';
 import { setImageMetaTags } from '../utilities/url';
 import { getSplits } from 'common/calculation';
 import * as style from './style.css';
-import { getCanonicalNameForUnit } from 'app/utilities/form';
+import {
+  getCanonicalNameForUnit,
+  parseDistanceInput,
+} from 'app/utilities/form';
 
 const PaceCalculator: FunctionalComponent = () => {
   const savedState = loadSavedState();
   const initialFormValues = { distance: '', time: '' };
   if (savedState) {
-    initialFormValues.time = savedState.time;
     const unitText = getCanonicalNameForUnit(savedState.unit);
-    initialFormValues.distance = `${savedState.distance} ${unitText}`;
+    let displayDistance = `${savedState.distance} ${unitText}`;
+
+    if (!savedState.unit) {
+      // Backwards compatibility shim
+      const { distance, unit, displayName } = parseDistanceInput(
+        savedState.distance
+      );
+      displayDistance = displayName;
+      savedState.distance = distance;
+      savedState.unit = unit;
+    }
+    initialFormValues.distance = displayDistance;
+    initialFormValues.time = savedState.time;
   }
   const initialSplits = savedState
     ? getSplits(savedState.distance, savedState.unit, savedState.time)

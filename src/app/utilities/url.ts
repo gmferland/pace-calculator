@@ -90,6 +90,11 @@ export const setImageMetaTags = () => {
 };
 
 export const setUrlMetaTags = (currentRoute: string) => {
+  // Guard for SSR environment
+  if (typeof window === 'undefined') {
+    return;
+  }
+  
   const routeConfig = routes.find(r => r.route === currentRoute);
   if (routeConfig) {
     const titleElement = document.querySelector('title');

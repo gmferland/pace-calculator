@@ -5,13 +5,21 @@ export enum Unit {
   Miles = 3,
 }
 
-export const routes = [
+export interface RouteConfig {
+  title: string;
+  label: string;
+  route: string;
+}
+
+export const routes: RouteConfig[] = [
   {
     title: 'Pace Calculator | Race Pace Space',
+    label: 'Pace Calculator',
     route: '/',
   },
   {
     title: 'Race Predictor | Race Pace Space',
+    label: 'Race Predictor',
     route: '/race-predictor',
   },
 ];

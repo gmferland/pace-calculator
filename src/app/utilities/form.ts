@@ -3,7 +3,21 @@ import { raceOptions, Unit, units } from 'common/config';
 export interface DistanceValue {
   distance: number;
   unit: Unit;
+  displayName: string;
 }
+
+export const getCanonicalNameForUnit = (unit: Unit) => {
+  switch (unit) {
+    case Unit.Meters:
+      return 'meters';
+    case Unit.Kilometers:
+      return 'kilometers';
+    case Unit.Miles:
+      return 'miles';
+    default:
+      return '';
+  }
+};
 
 export const parseDistanceInput = (value: string): DistanceValue => {
   // Use configured values if custom race
@@ -12,6 +26,7 @@ export const parseDistanceInput = (value: string): DistanceValue => {
     return {
       distance: matchingRace.distance,
       unit: matchingRace.unit,
+      displayName: matchingRace.name,
     };
   }
 
@@ -31,18 +46,9 @@ export const parseDistanceInput = (value: string): DistanceValue => {
       unit = unitConfig.id;
     }
   });
-  return { distance: distance, unit };
-};
-
-export const getCanonicalNameForUnit = (unit: Unit) => {
-  switch (unit) {
-    case Unit.Meters:
-      return 'meters';
-    case Unit.Kilometers:
-      return 'kilometers';
-    case Unit.Miles:
-      return 'miles';
-    default:
-      return '';
-  }
+  return {
+    distance,
+    unit,
+    displayName: `${distance} ${getCanonicalNameForUnit(unit)}`,
+  };
 };

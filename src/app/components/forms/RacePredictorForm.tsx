@@ -102,7 +102,7 @@ export default withFormik<WrappedFormProps, RacePredictorFormValues>({
     return errors;
   },
   handleSubmit: (values, formik) => {
-    const { distance, unit: distanceUnit } = parseDistanceInput(
+    const { distance, unit: distanceUnit, displayName } = parseDistanceInput(
       values.distance
     );
     const finishTime = predictRaceTime(
@@ -113,10 +113,8 @@ export default withFormik<WrappedFormProps, RacePredictorFormValues>({
       distanceUnit
     );
 
-    const unitText = getCanonicalNameForUnit(distanceUnit);
-
     formik.props.updateFinishInfo({
-      race: `${distance} ${unitText}`,
+      race: displayName,
       time: finishTime,
     });
   },
