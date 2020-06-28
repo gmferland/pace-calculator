@@ -1,4 +1,4 @@
-import { raceOptions, splits, Unit, units } from './config';
+import { splits, Unit, units } from './config';
 
 export interface FormattedSplit {
   name: string;

@@ -3,12 +3,9 @@ import { FormikProps, withFormik } from 'formik';
 import * as style from './style.css';
 import TimeInput from '../inputs/TimeInput';
 import RadioButtonGroup from '../radioButtonGroup';
-import { Unit } from 'common/config';
+import { Unit, raceOptions } from 'common/config';
 import ActionButton from '../actionButton';
-import {
-  parseDistanceInput,
-  getCanonicalNameForUnit,
-} from 'app/utilities/form';
+import { parseDistanceInput } from 'app/utilities/form';
 import TextInput from '../inputs/TextInput';
 import { predictRaceTime } from 'common/calculation';
 
@@ -44,7 +41,13 @@ const RacePredictorForm: FunctionalComponent<FormikProps<
             size="medium"
           />
         </div>
-        <TextInput name="distance" label="Race Distance" placeholder="00 km" />
+        <TextInput
+          name="distance"
+          label="Race Distance"
+          placeholder="00 km"
+          list="distance-options"
+          listOptions={raceOptions.map(({ name }) => name)}
+        />
       </div>
       <div class={style.submitRow}>
         <ActionButton type="submit" text="Calculate" />

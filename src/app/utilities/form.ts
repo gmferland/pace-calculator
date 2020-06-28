@@ -21,7 +21,12 @@ export const getCanonicalNameForUnit = (unit: Unit) => {
 
 export const parseDistanceInput = (value: string): DistanceValue => {
   // Use configured values if custom race
-  const matchingRace = raceOptions.find(race => race.name === value);
+  const matchingRace = raceOptions.find(
+    race =>
+      // Allow some leeway in matching
+      race.name.replace(/\s/g, '').toLowerCase() ===
+      value.replace(/\s/g, '').toLowerCase()
+  );
   if (matchingRace) {
     return {
       distance: matchingRace.distance,
