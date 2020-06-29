@@ -1,4 +1,4 @@
-import { units } from '../../common/config';
+import { units, routes } from '../../common/config';
 
 export const setUrlQueryParams = (
   distance: string,
@@ -43,23 +43,23 @@ export const parseUrlQueryParams = () => {
   if (distance && time) {
     return {
       distance,
-      unit,
+      unit: Number(unit),
       time,
     };
   }
   return null;
 };
 
-export const setMetaTags = () => {
+export const setImageMetaTags = () => {
   const params = parseUrlQueryParams();
   if (!params) {
     return;
   }
 
-  let unitName: string = '';
+  let unitName = '';
   if (params.unit) {
     // Match id to config
-    const matchingUnit = units.find(unit => unit.id === params.unit);
+    const matchingUnit = units.find(unit => unit.id === Number(params.unit));
     // Grab name if it exists (which it should...)
     if (matchingUnit) {
       unitName = matchingUnit.name;
@@ -86,5 +86,40 @@ export const setMetaTags = () => {
       'content',
       `https://racepace-og.now.sh/${calcString}.png?theme=light&md=1`
     );
+  }
+};
+
+export const setUrlMetaTags = (currentRoute: string) => {
+  // Guard for SSR environment
+  if (typeof window === 'undefined') {
+    return;
+  }
+  
+  const routeConfig = routes.find(r => r.route === currentRoute);
+  if (routeConfig) {
+    const titleElement = document.querySelector('title');
+    if (titleElement) {
+      titleElement.text = routeConfig.title;
+    }
+    const metaTitleElement = document.querySelector('meta[name="title"]');
+    if (metaTitleElement) {
+      metaTitleElement.setAttribute('content', routeConfig.title);
+    }
+
+    const twitterTitleElement = document.querySelector(
+      'meta[property="twitter:title"]'
+    );
+    if (twitterTitleElement) {
+      twitterTitleElement.setAttribute('content', routeConfig.title);
+    }
+
+    const twitterUrlElement = document.querySelector(
+      'meta[property="twitter:url"]'
+    );
+    if (twitterUrlElement) {
+      const { protocol, host } = window.location;
+      const fullUrl = `${protocol}//${host}${currentRoute}`;
+      twitterUrlElement.setAttribute('content', fullUrl);
+    }
   }
 };

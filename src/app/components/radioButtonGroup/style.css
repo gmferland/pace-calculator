@@ -54,9 +54,15 @@
   cursor: pointer;
   padding: 0 12px;
   height: 100%;
+}
+
+.input-container.small label {
   width: var(--input-height);
 }
 
+.input-container.medium label {
+  width: calc(var(--input-height) * 2.5)
+}
 .input-container label:hover {
   background-color: var(--light-grey);
 }
