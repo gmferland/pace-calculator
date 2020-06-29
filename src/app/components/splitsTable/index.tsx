@@ -1,6 +1,6 @@
-import { FunctionalComponent, h } from 'preact';
-import { FormattedSplit } from '../../../common/calculation';
-import * as style from './style.css';
+import { FunctionalComponent, h } from "preact";
+import { FormattedSplit } from "../../../common/calculation";
+import * as style from "./style.css";
 
 interface SplitsTableProps {
   splits: Array<FormattedSplit>;

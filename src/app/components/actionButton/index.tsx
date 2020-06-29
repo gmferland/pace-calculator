@@ -1,5 +1,5 @@
-import { FunctionalComponent, h } from 'preact';
-import * as style from './style.css';
+import { FunctionalComponent, h } from "preact";
+import * as style from "./style.css";
 
 interface ActionButtonProps {
   type: string;
@@ -10,7 +10,7 @@ interface ActionButtonProps {
 const ActionButton: FunctionalComponent<ActionButtonProps> = ({
   type,
   text,
-  disabled,
+  disabled
 }) => {
   return (
     <button type={type} class={style.button} disabled={disabled}>

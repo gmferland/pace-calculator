@@ -18,12 +18,11 @@ const TextInput: FunctionalComponent<TextInputProps> = ({
   label,
   list,
   listOptions,
-  name,
   onFocus,
   placeholder,
-  validate,
+  ...fieldProps
 }) => {
-  const [field] = useField<string>({ name, validate });
+  const [field] = useField<string>(fieldProps);
   return (
     <div class={style.inputContainer}>
       <label htmlFor={field.name}>{label}</label>

@@ -1,23 +1,45 @@
 import { FunctionalComponent, h } from 'preact';
+import { useEffect } from 'preact/hooks';
 import { FormikProps, withFormik } from 'formik';
 import * as style from './style.css';
 import ActionButton from '../actionButton';
 import TextInput from '../inputs/TextInput';
 import TimeInput from '../inputs/TimeInput';
-import { raceOptions, Unit } from '../../../common/config';
+import RadioButtonGroup from '../radioButtonGroup';
+import { raceOptions, units } from '../../../common/config';
 import { FormattedSplit, getSplits } from '../../../common/calculation';
 import { saveState } from '../../utilities/storage';
-import { setImageMetaTags } from '../../utilities/url';
-import { parseDistanceInput } from 'app/utilities/form';
+import { setMetaTags } from '../../utilities/url';
 
 export interface PaceCalculatorFormValues {
   distance: string;
+  unit: string;
   time: string;
 }
 
 const PaceCalculatorForm: FunctionalComponent<FormikProps<
   PaceCalculatorFormValues
->> = ({ errors, handleSubmit, isValid, touched }) => {
+>> = ({
+  errors,
+  handleSubmit,
+  isValid,
+  status,
+  setFieldValue,
+  setStatus,
+  touched,
+  values,
+}) => {
+  useEffect(() => {
+    // Unit input is not required if the user selects a known/configured race distance
+    const matchingRace = raceOptions.find(
+      race => race.name === values.distance
+    );
+    setStatus({ isUnitDisabled: !!matchingRace });
+    if (matchingRace) {
+      setFieldValue('unit', '');
+    }
+  }, [values.distance, setStatus, setFieldValue]);
+
   return (
     <form class={style.form} onSubmit={handleSubmit}>
       <div class={style.inputRow}>
@@ -25,12 +47,22 @@ const PaceCalculatorForm: FunctionalComponent<FormikProps<
           <TextInput
             name="distance"
             label="Distance"
-            placeholder="00 km"
+            placeholder="Enter Distance"
             list="distance-options"
             listOptions={raceOptions.map(({ name }) => name)}
           />
+          <div>
+            <RadioButtonGroup
+              name="unit"
+              options={units.map(({ name, id }) => ({
+                label: name,
+                value: id,
+              }))}
+              disabled={status.isUnitDisabled}
+            />
+          </div>
         </div>
-        <TimeInput name="time" label="Goal Time" placeholder="0:00" />
+        <TimeInput name="time" label="Goal Time" placeholder="Enter Time" />
       </div>
       <div class={style.submitRow}>
         <ActionButton type="submit" text="Calculate" />
@@ -68,14 +100,6 @@ export default withFormik({
     const errors: Partial<PaceCalculatorFormValues> = {};
     if (!values.distance) {
       errors.distance = 'Please enter a race distance.';
-    } else {
-      const { distance, unit } = parseDistanceInput(values.distance);
-      if (distance < 0) {
-        errors.distance = 'Please enter a race distance.';
-      }
-      if (unit === Unit.Unknown) {
-        errors.distance = 'Please specify a distance unit.';
-      }
     }
 
     if (!values.time) {
@@ -89,10 +113,13 @@ export default withFormik({
     return errors;
   },
   handleSubmit: (values, formik) => {
-    const { distance, unit } = parseDistanceInput(values.distance);
-    const calculatedSplits = getSplits(distance, unit, values.time);
+    const calculatedSplits = getSplits(
+      values.distance,
+      values.unit,
+      values.time
+    );
     formik.props.updateSplits(calculatedSplits);
-    saveState(distance, unit, values.time);
-    setImageMetaTags();
+    saveState(values.distance, values.unit, values.time);
+    setMetaTags();
   },
 })(PaceCalculatorForm);
