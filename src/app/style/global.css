@@ -10,6 +10,16 @@ body {
   padding: 0;
 }
 
+/* Hide overflow in x direction (primarily necessary for off screen menu.
+ * Includes a bit of a hack for iOS/Safari
+*/
+html,
+body {
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -18,6 +28,7 @@ h1 {
   font-family: "GT America Expanded";
   font-weight: 900;
   font-size: var(--base-font-size);
+  line-height: var(--base-line-height);
   margin: 0;
 }
 
@@ -25,6 +36,7 @@ h2 {
   font-weight: 500;
   font-family: "GT America Expanded";
   font-size: var(--base-font-size);
+  line-height: var(--base-line-height);
   margin: 0;
 }
 
@@ -37,13 +49,25 @@ h2 {
   margin-right: auto;
 }
 
+.mobile-only {
+  display: none;
+}
+
+.mobile-hidden {
+  display: initial;
+}
+
 /* CSS3 variables defined here */
 :root {
   --base-spacing: 4px;
   --base-font-size: 20px;
+  --base-line-height: 24px;
   --small-font-size: 16px;
   --input-height: 40px;
+  --input-min-width: 160px;
+  --input-max-width: 300px;
   --default-border-radius: 4px;
+  --header-height: 56px;
 
   /* colors */
   --dark-grey: #424242;
@@ -57,6 +81,16 @@ h2 {
   :root {
     --input-height: 36px;
     --base-font-size: 18px;
+    --base-line-height: 22px;
     --small-font-size: 16px;
+    --header-height: 54px;
+  }
+
+  .mobile-only {
+    display: initial;
+  }
+
+  .mobile-hidden {
+    display: none !important;
   }
 }

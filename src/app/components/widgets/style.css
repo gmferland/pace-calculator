@@ -10,11 +10,17 @@
   grid-column-gap: calc(var(--base-spacing) * 4);
 }
 
+.race-time {
+  font-size: var(--base-font-size);
+  display: flex;
+  flex-direction: column;
+}
+
 .split-row {
   display: grid;
   grid-template-columns: 96px 96px;
-  grid-column-gap: calc(var(--base-spacing * 4));
-  grid-row-gap: calc(var(--base-spacing * 4));
+  grid-column-gap: calc(var(--base-spacing) * 4);
+  grid-row-gap: calc(var(--base-spacing) * 4);
   border-bottom: 1px solid var(--light-grey);
   padding: 8px 0;
 }
@@ -25,4 +31,9 @@
 
 .distance-label {
   font-weight: bold;
+}
+
+.finish-time {
+  font-weight: bold;
+  margin-right: calc(var(--base-spacing) * 4);
 }

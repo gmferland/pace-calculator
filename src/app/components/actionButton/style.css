@@ -11,8 +11,8 @@
   cursor: pointer;
   color: white;
   background-color: var(--black);
-  min-width: 160px;
-  max-width: 300px;
+  min-width: var(--input-min-width);
+  max-width: var(--input-max-width);
   padding: 0 calc(var(--base-spacing) * 4);
 }
 
