@@ -21,6 +21,7 @@ module.exports = {
     'react/no-unknown-property': ['error', { ignore: ['class'] }],
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/interface-name-prefix': 'off',
   },
   settings: {
     react: {

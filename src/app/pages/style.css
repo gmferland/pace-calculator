@@ -1,3 +1,12 @@
+.container {
+  width: 100%;
+  max-width: 792px;
+  padding-left: calc(var(--base-spacing) * 6);
+  padding-right: calc(var(--base-spacing) * 6);
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .page-container {
   min-height: 100%;
   width: 100%;

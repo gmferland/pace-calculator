@@ -33,16 +33,6 @@
   width: 100%;
 }
 
-.nav a {
-  color: white;
-  text-decoration: none;
-  height: var(--base-line-height);
-}
-
-.nav a.active, .nav a:hover {
-  border-bottom: 2px solid white;
-}
-
 ul.links {
   list-style-type: none;
 }

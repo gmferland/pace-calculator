@@ -1,0 +1,9 @@
+a.nav-link {
+  color: white;
+  text-decoration: none;
+  height: var(--base-line-height);
+}
+
+a.nav-link.active, a.nav-link:hover {
+  border-bottom: 2px solid white;
+}

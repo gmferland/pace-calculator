@@ -1,5 +1,6 @@
 import { FunctionalComponent, h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
+import { RouteComponentProps } from '@reach/router';
 import PaceCalculatorForm from '../components/forms/PaceCalculatorForm';
 import SplitsTable from '../components/widgets/SplitsTable';
 import { loadSavedState } from '../utilities/storage';
@@ -11,7 +12,8 @@ import {
   parseDistanceInput,
 } from 'app/utilities/form';
 
-const PaceCalculator: FunctionalComponent = () => {
+
+const PaceCalculator: FunctionalComponent<RouteComponentProps> = () => {
   const savedState = loadSavedState();
   const initialFormValues = { distance: '', time: '' };
   if (savedState) {
