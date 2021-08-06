@@ -1,6 +1,6 @@
 import { FunctionalComponent, h } from 'preact';
-import { FormikProps, withFormik } from 'formik';
-import * as style from './style.css';
+import { Form, FormikProps, withFormik } from 'formik';
+import style from './style.css';
 import ActionButton from '../actionButton';
 import TextInput from '../inputs/TextInput';
 import TimeInput from '../inputs/TimeInput';
@@ -19,8 +19,8 @@ const PaceCalculatorForm: FunctionalComponent<FormikProps<
   PaceCalculatorFormValues
 >> = ({ errors, handleSubmit, isValid, touched }) => {
   return (
-    <form class={style.form} onSubmit={handleSubmit}>
-      <div class={style.inputRow}>
+    <Form className={style.form}>
+      <div class={style['input-row']}>
         <div class={style.distance}>
           <TextInput
             name="distance"
@@ -32,7 +32,7 @@ const PaceCalculatorForm: FunctionalComponent<FormikProps<
         </div>
         <TimeInput name="time" label="Goal Time" placeholder="0:00" />
       </div>
-      <div class={style.submitRow}>
+      <div class={style['submit-row']}>
         <ActionButton type="submit" text="Calculate" />
         {!isValid && (
           <p>
@@ -48,7 +48,7 @@ const PaceCalculatorForm: FunctionalComponent<FormikProps<
           </p>
         )}
       </div>
-    </form>
+    </Form>
   );
 };
 

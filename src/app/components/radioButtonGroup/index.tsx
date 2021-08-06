@@ -1,5 +1,5 @@
 import { FunctionalComponent, h } from 'preact';
-import * as style from './style.css';
+import style from './style.css';
 import { useField } from 'formik';
 
 interface ButtonOption {
@@ -22,11 +22,11 @@ const RadioButtonGroup: FunctionalComponent<RadioButtonGroupProps> = ({
 }) => {
   const [field, meta, helpers] = useField({ name });
   return (
-    <div class={style.groupContainer}>
+    <div class={style['group-container']}>
       {options.map(({ label, value }) => {
         const id = `${name}-${value}`;
         return (
-          <div key={id} class={`${style.inputContainer} ${style[size]}`}>
+          <div key={id} class={`${style['input-container']} ${style[size]}`}>
             <input
               type="radio"
               name={name}

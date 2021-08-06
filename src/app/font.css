@@ -2,7 +2,7 @@
   font-family: "GT America";
   font-style: normal;
   font-weight: normal;
-  src: url("../assets/fonts/GT-America-Regular.woff") format("woff");
+  src: url("./assets/fonts/GT-America-Regular.woff") format("woff");
   font-display: swap;
 }
 
@@ -10,7 +10,7 @@
   font-family: "GT America";
   font-style: normal;
   font-weight: bold;
-  src: url("../assets/fonts/GT-America-Bold.woff") format("woff");
+  src: url("./assets/fonts/GT-America-Bold.woff") format("woff");
   font-display: swap;
 }
 
@@ -18,7 +18,7 @@
   font-family: "GT America Mono";
   font-style: normal;
   font-weight: normal;
-  src: url("../assets/fonts/GT-America-Mono.woff") format("woff");
+  src: url("./assets/fonts/GT-America-Mono.woff") format("woff");
   font-display: swap;
 }
 
@@ -26,7 +26,7 @@
   font-family: "GT America Expanded";
   font-style: normal;
   font-weight: 400;
-  src: url("../assets/fonts/GT-America-Expanded-Medium.woff") format("woff");
+  src: url("./assets/fonts/GT-America-Expanded-Medium.woff") format("woff");
   font-display: swap;
 }
 
@@ -34,6 +34,6 @@
   font-family: "GT America Expanded";
   font-style: normal;
   font-weight: 900;
-  src: url("../assets/fonts/GT-America-Expanded-Black.woff") format("woff");
+  src: url("./assets/fonts/GT-America-Expanded-Black.woff") format("woff");
   font-display: swap;
 }

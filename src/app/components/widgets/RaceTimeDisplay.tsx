@@ -1,5 +1,5 @@
 import { FunctionalComponent, h } from 'preact';
-import * as style from './style.css';
+import style from './style.css';
 
 interface RaceTimeDisplayProps {
   race: string;
@@ -18,9 +18,9 @@ const RaceTimeDisplay: FunctionalComponent<RaceTimeDisplayProps> = ({
   return (
     <section>
       <h2 class={style.title}>{title}</h2>
-      <div class={style.raceTime}>
+      <div class={style['race-time']}>
         <p>
-          <span class={style.finishTime}>{time}</span>
+          <span class={style['finish-time']}>{time}</span>
           {race}
         </p>
       </div>

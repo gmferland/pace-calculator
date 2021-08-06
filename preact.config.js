@@ -29,6 +29,20 @@ export default {
       config.resolve.plugins = [];
     }
 
+    // Enable css modules in the folloing folders
+    config.module.rules[4].include = [
+      resolve(__dirname, 'src', 'app', 'routes'),
+      resolve(__dirname, 'src', 'app', 'components')
+    ];
+    
+    config.module.rules[5].exclude = [
+      resolve(__dirname, 'src', 'app', 'routes'),
+      resolve(__dirname, 'src', 'app', 'components')
+    ];
+
+    const typeCheckerConfig = helpers.getPluginsByName(config, 'ForkTsCheckerWebpackPlugin');
+    typeCheckerConfig[0].plugin.async = false;
+
     config.resolve.plugins.push(
       new TsConfigPathsPlugin({
         configFile: 'tsconfig.json',

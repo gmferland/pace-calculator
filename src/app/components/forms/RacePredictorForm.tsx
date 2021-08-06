@@ -1,6 +1,6 @@
 import { FunctionalComponent, h } from 'preact';
-import { FormikProps, withFormik } from 'formik';
-import * as style from './style.css';
+import { Form, FormikProps, withFormik } from 'formik';
+import style from './style.css';
 import TimeInput from '../inputs/TimeInput';
 import RadioButtonGroup from '../radioButtonGroup';
 import { Unit, raceOptions } from 'common/config';
@@ -30,8 +30,8 @@ const RacePredictorForm: FunctionalComponent<FormikProps<
   RacePredictorFormValues
 >> = ({ errors, handleSubmit, isValid, touched }) => {
   return (
-    <form class={style.form} onSubmit={handleSubmit}>
-      <div class={style.inputRow}>
+    <Form className={style.form}>
+      <div class={style['input-row']}>
         <div class={style.pace}>
           <TimeInput name="pace" label="Goal Pace" placeholder="0:00" />
           <RadioButtonGroup
@@ -49,7 +49,7 @@ const RacePredictorForm: FunctionalComponent<FormikProps<
           listOptions={raceOptions.map(({ name }) => name)}
         />
       </div>
-      <div class={style.submitRow}>
+      <div class={style['submit-row']}>
         <ActionButton type="submit" text="Calculate" />
         {!isValid && (
           <p>
@@ -65,7 +65,7 @@ const RacePredictorForm: FunctionalComponent<FormikProps<
           </p>
         )}
       </div>
-    </form>
+    </Form>
   );
 };
 

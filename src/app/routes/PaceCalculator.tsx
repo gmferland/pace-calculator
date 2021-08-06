@@ -6,12 +6,10 @@ import SplitsTable from '../components/widgets/SplitsTable';
 import { loadSavedState } from '../utilities/storage';
 import { setImageMetaTags } from '../utilities/url';
 import { getSplits } from 'common/calculation';
-import * as style from './style.css';
 import {
   getCanonicalNameForUnit,
   parseDistanceInput,
 } from 'app/utilities/form';
-
 
 const PaceCalculator: FunctionalComponent<RouteComponentProps> = () => {
   const savedState = loadSavedState();
@@ -43,13 +41,13 @@ const PaceCalculator: FunctionalComponent<RouteComponentProps> = () => {
   });
 
   return (
-    <div class={style.pageContainer}>
+    <>
       <PaceCalculatorForm
         initialValues={initialFormValues}
         updateSplits={updateSplits}
       />
       <SplitsTable splits={splits} />
-    </div>
+    </>
   );
 };
 

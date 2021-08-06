@@ -1,5 +1,5 @@
 import { FunctionalComponent, h } from 'preact';
-import * as style from './style.css';
+import style from './style.css';
 import { useField, FieldValidator } from 'formik';
 
 interface TimeInputProps {
@@ -66,7 +66,7 @@ const TimeInput: FunctionalComponent<TimeInputProps> = ({
 }) => {
   const [field, _meta, helpers] = useField<string>(fieldProps);
   return (
-    <div class={style.inputContainer}>
+    <div class={style['input-container']}>
       <label htmlFor={field.name}>{label}</label>
       <input
         type="tel"

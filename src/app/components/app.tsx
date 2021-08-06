@@ -1,10 +1,10 @@
 import { FunctionalComponent, h } from 'preact';
 import { Router } from '@reach/router';
 
-import PaceCalculatorPage from 'app/pages/PaceCalculator';
-import RacePredictorPage from 'app/pages/RacePredictor';
-import NotFoundPage from 'app/pages/NotFound';
-import MainLayout from 'app/pages/MainLayout';
+import PaceCalculatorPage from 'app/routes/PaceCalculator';
+import RacePredictorPage from 'app/routes/RacePredictor';
+import NotFoundPage from 'app/routes/NotFound';
+import MainLayout from 'app/components/layout/MainLayout';
 
 // eslint-disable-next-line
 if ((module as any).hot) {
@@ -14,13 +14,15 @@ if ((module as any).hot) {
 
 const App: FunctionalComponent = () => {
   return (
-    <Router>
-      <MainLayout path="/">
-        <PaceCalculatorPage path="/" />
-        <RacePredictorPage path="/race-predictor" />
-        <NotFoundPage default />
-      </MainLayout>
-    </Router>
+    <div id="preact-root">
+      <Router>
+        <MainLayout path="/">
+          <PaceCalculatorPage path="/" />
+          <RacePredictorPage path="/race-predictor" />
+          <NotFoundPage default />
+        </MainLayout>
+      </Router>
+    </div>
   );
 };
 
